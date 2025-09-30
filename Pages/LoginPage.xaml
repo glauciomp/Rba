@@ -6,6 +6,8 @@
 
     <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
 
+        <Image Source="logo.png" HeightRequest="150" VerticalOptions="Center" HorizontalOptions="Center"/>
+
         <Label Text="Recicla Belém"
                FontSize="28"
                HorizontalOptions="Center"

@@ -6,7 +6,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-
+            
             <Label x:Name="lblBoasVindas"
                    FontSize="22"
                    FontAttributes="Bold"
