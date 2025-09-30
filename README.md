@@ -21,7 +21,7 @@ O app **Recicla Belém** tem como missão promover uma cidade mais limpa e suste
 | Giovana        | [@giovv1](https://github.com/giovv1) |
 | Clopin         | [@clopin](https://github.com/clopin) |
 | Thiago         | [@t-l](https://github.com/t-l) |
-| Gláucio M.     | [@glaucocmp](https://github.com/glaucocmp) |
+| Gláucio M.     | [@glauciomp](https://github.com/glauciomp) |
 
 ---
 
@@ -47,7 +47,7 @@ O app **Recicla Belém** tem como missão promover uma cidade mais limpa e suste
 ## 📊 Estatísticas do GitHub
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=glaucocmp&show_icons=true&theme=radical" alt="GitHub Stats">
+  <img src="https://github-readme-stats.vercel.app/api?username=glauciomp&show_icons=true&theme=radical" alt="GitHub Stats">
 </p>
 
 ---
@@ -56,7 +56,7 @@ O app **Recicla Belém** tem como missão promover uma cidade mais limpa e suste
 
 ```bash
 # Clone o repositório
-git clone https://github.com/glaucocmp/Rba.git
+git clone https://github.com/glauciomp/Rba.git
 
 # Abra o projeto no Visual Studio
 # Execute a solução Rba.sln
