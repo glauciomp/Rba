@@ -27,6 +27,18 @@
                    Text="Gerado em residências (restos de comida, embalagens, papel, vidro, plástico)" />
         </VerticalStackLayout>
 
+        <VerticalStackLayout Spacing="2">
+            <Label Text="Destino Ambiental"/>
+            <Entry x:Name="DestinoEntry" Placeholder="Destino Ambiental"
+                   Text="Reciclável"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="2">
+            <Label Text="Exemplos"/>
+            <Entry x:Name="ExemplosEntry" Placeholder="Exemplos"
+                   Text="Jornais, revistas, caixas, folhas"/>
+        </VerticalStackLayout>
+
         <Button Text="Registrar" Clicked="OnRegistrarClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />

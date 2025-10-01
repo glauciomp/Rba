@@ -21,6 +21,8 @@ namespace Rba.Pages
             MaterialEntry.Text = string.Empty;
             OrigemEntry.Text = string.Empty;
             OrigemDescrEntry.Text = string.Empty;
+            DestinoEntry.Text = string.Empty;
+            ExemplosEntry.Text = string.Empty;
         }
 
         private async void OnVoltarClicked(object sender, EventArgs e)
