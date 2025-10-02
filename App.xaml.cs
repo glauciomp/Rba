@@ -16,8 +16,8 @@ public partial class App : Application
         var window = base.CreateWindow(activationState);
 
         // Simulando tamanho de celular Galaxy S21
-        window.Width = 360; // largura típica do galaxy S21
-        window.Height = 800; // altura típica do galaxy s21
+        window.Width = 560; // largura típica do galaxy S21 é 360 - ajustado para ficar um pouco mais largo
+        window.Height = 800; // altura típica do galaxy s21 é 800
 
         // modelo Iphone 12 Largura 390 e altura 844
         // modelo Pixel 6 Largura 412 e altura 915

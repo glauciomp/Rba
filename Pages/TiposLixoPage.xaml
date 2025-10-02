@@ -3,52 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Rba.Pages.TiposLixoPage"
              Title="Tipos de Lixo">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
 
-    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Cor da Lixeira"/>
+                <Entry x:Name="CorEntry" Placeholder="Cor da Lixeira" Text="Azul" />
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Cor da Lixeira"/>
-            <Entry x:Name="CorEntry" Placeholder="Cor da Lixeira" Text="Azul" />
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Tipo de Material"/>
+                <Entry x:Name="MaterialEntry" Placeholder="Tipo de Material" Text="Papel e papelão" />
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Tipo de Material"/>
-            <Entry x:Name="MaterialEntry" Placeholder="Tipo de Material" Text="Papel e papelão" />
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Classificação por Origem"/>
+                <Entry x:Name="OrigemEntry" Placeholder="Classificação por Origem" Text="Lixo doméstico" />
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Classificação por Origem"/>
-            <Entry x:Name="OrigemEntry" Placeholder="Classificação por Origem" Text="Lixo doméstico" />
-        </VerticalStackLayout>
-
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Descrição da Origem"/>
-            <Entry x:Name="OrigemDescrEntry" Placeholder="Descrição da Origem"
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Descrição da Origem"/>
+                <Entry x:Name="OrigemDescrEntry" Placeholder="Descrição da Origem"
                    Text="Gerado em residências (restos de comida, embalagens, papel, vidro, plástico)" />
-        </VerticalStackLayout>
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Destino Ambiental"/>
-            <Entry x:Name="DestinoEntry" Placeholder="Destino Ambiental"
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Destino Ambiental"/>
+                <Entry x:Name="DestinoEntry" Placeholder="Destino Ambiental"
                    Text="Reciclável"/>
-        </VerticalStackLayout>
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Exemplos"/>
-            <Entry x:Name="ExemplosEntry" Placeholder="Exemplos"
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Exemplos"/>
+                <Entry x:Name="ExemplosEntry" Placeholder="Exemplos"
                    Text="Jornais, revistas, caixas, folhas"/>
+            </VerticalStackLayout>
+
+            <Button Text="Registrar" Clicked="OnRegistrarClicked"
+                Background="{StaticResource PrimaryBrush}"
+                TextColor="{StaticResource White}" />
+
+            <Button Text="Limpar" Clicked="OnLimparClicked"
+                Background="{StaticResource PrimaryBrush}"
+                TextColor="{StaticResource White}" />
+
+            <Button Text="Voltar" Clicked="OnVoltarClicked"
+                Background="{StaticResource PrimaryBrush}"
+                TextColor="{StaticResource White}" />
+
+            <Button Text="Tipos de Lixo Cadastrados" Clicked="OnConsultarTiposClicked"
+        Background="{StaticResource PrimaryBrush}"
+        TextColor="{StaticResource White}" />
+
         </VerticalStackLayout>
-
-        <Button Text="Registrar" Clicked="OnRegistrarClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
-
-        <Button Text="Limpar" Clicked="OnLimparClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
-
-        <Button Text="Voltar" Clicked="OnVoltarClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
