@@ -3,7 +3,7 @@
 <p align="center">
   <em>Projeto de Trabalho de Conclusão de Curso (TCC)<br>
   Curso Técnico em Desenvolvimento de Sistemas - ETEC<br>
-  Turma EMW 3.0</em>
+  Turma EWM 3.0</em>
 </p>
 
 <p align="center">
