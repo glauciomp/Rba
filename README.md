@@ -25,10 +25,10 @@
 | Nome           | GitHub         |
 |----------------|----------------|
 | Ana Beatriz    | [@ana-bia](https://github.com/ana-bia) |
-| Bianca Karine  | [@Biankatunes](https://github.com/Biankatunes) |
-| Giovana        | [@giovv1](https://github.com/giovv1) |
-| Clopin         | [@clopin](https://github.com/clopin) |
-| Thiago         | [@t-l](https://github.com/t-l) |
+| Bianca Karine  | [@bkantunes](https://github.com/bkantunes) |
+| Emanuel        | [@Emanuel0112](https://github.com/Emanuel0112) |
+| Coppini        | [@APCoppini](https://github.com/APCoppini) |
+| Thiago         | [@Thhmartins](https://github.com/Thhmartins)  |
 | Gláucio M.     | [@glauciomp](https://github.com/glauciomp) |
 
 ---
