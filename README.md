@@ -24,7 +24,7 @@
 
 | Nome           | GitHub         |
 |----------------|----------------|
-| Ana Beatriz    | [@ana-bia](https://github.com/ana-bia) |
+| Ana Beatriz    | [@AnaBia37129](https://github.com/AnaBia37129) |
 | Bianca Karine  | [@bkantunes](https://github.com/bkantunes) |
 | Emanuel        | [@Emanuel0112](https://github.com/Emanuel0112) |
 | Coppini        | [@APCoppini](https://github.com/APCoppini) |
