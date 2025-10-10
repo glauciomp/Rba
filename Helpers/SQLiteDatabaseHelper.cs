@@ -3,6 +3,7 @@ using Rba.Models;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Rba.Pages;
 
 namespace Rba.Helpers;
 
@@ -24,6 +25,8 @@ public class SQLiteDatabaseHelper
         _database.CreateTableAsync<TipoLixo>()
             .ConfigureAwait(false)
             .GetAwaiter().GetResult();
+        // criação da tabela ponto de coleta
+        _database.CreateTableAsync<PontoColeta>().Wait();
     }
 
     public Task<int> InserirUsuarioAsync(Usuario usuario)
@@ -39,7 +42,7 @@ public class SQLiteDatabaseHelper
     public Task<Usuario?> ObterUsuarioPorNomeAsync(string nome)
     {
         string nomePadrao = nome.Trim();
-        return _database.Table<Usuario?>()
+        return _database.Table<Usuario>()
             .Where(u => u.NomeUsuario == nomePadrao)
             .FirstOrDefaultAsync();
     }
@@ -62,4 +65,40 @@ public class SQLiteDatabaseHelper
     public Task<List<TipoLixo>> GetTiposLixosAsync() =>
         _database.Table<TipoLixo>()
         .ToListAsync();
+
+    public Task<List<PontoColeta>> GetAll()
+    {
+        return _database.Table<PontoColeta>().ToListAsync();
+    }
+
+    public Task<int> Update(PontoColeta p)
+    {
+        string sql = "UPDATE PontoColeta SET Nome=?, Endereco=?, TipoLixo=?, Contato=?, Horario=? WHERE Id=?";
+        return _database.ExecuteAsync(sql, p.Nome, p.Endereco, p.TipoLixo, p.Contato, p.Horario, p.Id);
+    }
+
+    public Task<int> Delete(int Id)
+    {
+        return _database.Table<PontoColeta>().DeleteAsync(i => i.Id == Id);
+    }
+
+    public Task<int> Insert(PontoColeta pc)
+    {
+        return _database.InsertAsync(pc);
+    }
+
+    public static class Sessao
+    {
+        public static Usuario UsuarioPage { get; private set; }
+
+        public static void IniciarSessao(Usuario usuario)
+        {
+            UsuarioPage = usuario;
+        }
+        public static void EncerrarSessao()
+        {
+            UsuarioPage = null;
+        }
+        public static bool IsMaster => UsuarioPage != null && UsuarioPage.TipoUsuario == "Master";
+    }
 }

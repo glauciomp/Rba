@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Rba.Pages.PontosColetaPage"
+             Title="Pontos de Coletas">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- FORMULÁRIO: somente admin -->
+            <VerticalStackLayout IsVisible="{Binding IsMaster}">
+                <Label Text="Cadastrar novo ponto de coleta"
+                       FontAttributes="Bold"
+                       FontSize="Medium"
+                       HorizontalOptions="Center" />
+                <Entry x:Name="nomeEntry" Placeholder="Nome do ponto" />
+                <Entry x:Name="enderecoEntry" Placeholder="Endereço" />
+                <Entry x:Name="tipoEntry" Placeholder="Tipo de lixo" />
+                <Entry x:Name="contatoEntry" Placeholder="Contato" />
+
+                <Label Text="Horário de início" />
+                <TimePicker x:Name="inicioPicker" Time="08:00" />
+                <Label Text="Horário de término" />
+                <TimePicker x:Name="fimPicker" Time="18:00" />
+
+                <Button Text="Salvar" Clicked="Button_Salvar" />
+            </VerticalStackLayout>
+
+            <!-- LISTA DE PONTOS: sempre visível -->
+            <Label Text="Pontos de Coleta Cadastrados"
+                   FontAttributes="Bold"
+                   FontSize="Medium"
+                   HorizontalOptions="Center" />
+
+            <CollectionView x:Name="listaView"
+                            SelectionMode="None"
+                            HeightRequest="400">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#2E7D32"
+                               BorderColor="White"
+                               CornerRadius="10"
+                               Margin="5"
+                               Padding="10">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Nome}" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="{Binding Endereco}" TextColor="White" />
+                                <Label Text="{Binding TipoLixo}" TextColor="White" />
+                                <Label Text="{Binding Contato}" TextColor="White" />
+                                <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
+
+                                <!-- Botão excluir só para admin -->
+                                <Button Text="Excluir"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                        CornerRadius="8"
+                                        Margin="0,5,0,0"
+                                        IsVisible="{Binding Source={x:Reference listaView}, Path=BindingContext.IsMaster}"
+                                        Clicked="Button_Excluir"
+                                        BindingContext="{Binding .}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -19,7 +19,7 @@ namespace Rba.Pages
 
         private async void OnMapaClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Mapa", "Funcionalidade do mapa ainda não implementada.", "OK");
+            await Navigation.PushAsync(new PontosColetaPage());
         }
 
         private async void OnDesafiosClicked(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+ï»¿using Microsoft.Maui.Controls;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,47 +10,48 @@ namespace Rba.Pages
     public partial class RegisterPage : ContentPage
     {
         private readonly SQLiteDatabaseHelper _db;
+
         public RegisterPage()
         {
             InitializeComponent();
-            TipoUsuarioPicker.SelectedIndex = 0; // Normal por padrão
+            TipoUsuarioPicker.SelectedIndex = 0; // Normal por padrÃ£o
 
-            string dbPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "rba_database.db3");
-
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
             _db = new SQLiteDatabaseHelper(dbPath);
         }
 
         private async void OnRegisterClicked(object sender, EventArgs e)
         {
-
-            // Trim para remover espaços extras
-            //IsNullOrWhiteSpace para verificar se está vazio ou só com espaços
-            // Operador null-coalescing (??) para garantir que não seja nulo
-            // ? para acessar Text com segurança;
-            // ?? string.Empty para garantir que não seja nulo
             string nome = NomeEntry?.Text?.Trim() ?? string.Empty;
-            string email = EmailEntry?.Text?.Trim()?? string.Empty;
-            string senha = SenhaEntry?.Text?.Trim()?? string.Empty;
+            string email = EmailEntry?.Text?.Trim() ?? string.Empty;
+            string senha = SenhaEntry?.Text?.Trim() ?? string.Empty;
             string tipo = TipoUsuarioPicker?.SelectedItem?.ToString() ?? "Normal";
 
-            // Validação de campos obrigatórios
+            // ðŸ”¹ ValidaÃ§Ã£o bÃ¡sica
             if (string.IsNullOrWhiteSpace(nome) ||
                 string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(senha))
-
             {
                 await DisplayAlert("Erro", "Por favor, preencha todos os campos.", "OK");
                 return;
             }
-            // Regex para validar email (ex: nomeDdominio.com)
+
+            // ðŸ”¹ ValidaÃ§Ã£o de e-mail
             if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
-                await DisplayAlert("Erro", "Por favor, insira um email válido.", "OK");
+                await DisplayAlert("Erro", "Por favor, insira um email vÃ¡lido.", "OK");
                 return;
             }
-            
+
+            // ðŸ”¹ Verifica se o usuÃ¡rio jÃ¡ existe
+            var existente = await _db.ObterUsuarioPorNomeAsync(nome);
+            if (existente != null)
+            {
+                await DisplayAlert("Erro", "Este nome de usuÃ¡rio jÃ¡ estÃ¡ em uso.", "OK");
+                return;
+            }
+
+            // ðŸ”¹ Cria e salva o novo usuÃ¡rio
             var usuario = new Usuario
             {
                 NomeUsuario = nome,
@@ -58,8 +59,12 @@ namespace Rba.Pages
                 Senha = senha,
                 TipoUsuario = tipo
             };
+
             await _db.InserirUsuarioAsync(usuario);
-            await DisplayAlert("Sucesso", $"Usuário {nome} cadastrado como {tipo}.", "OK");
+
+            await DisplayAlert("Sucesso", $"UsuÃ¡rio {nome} cadastrado como {tipo}.", "OK");
+
+            // ðŸ”¹ Retorna ao login
             await Navigation.PopAsync();
         }
 
@@ -68,10 +73,9 @@ namespace Rba.Pages
             await Navigation.PopAsync();
         }
 
-                
         private async void OnUsuariosClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UsuariosPage()); 
+            await Navigation.PushAsync(new UsuariosPage());
         }
     }
 }

@@ -1,15 +1,23 @@
 ﻿using Microsoft.Maui.Controls;
+using Rba.Helpers;
 
 namespace Rba;
 
 public partial class App : Application
 {
-    [Obsolete]
+   
     public App()
     {
         InitializeComponent();
+        // Inicializa o banco de dados
+        string dbPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "recicla.db3");
+        Db = new SQLiteDatabaseHelper(dbPath);
         MainPage = new NavigationPage(new Pages.LoginPage());
     }
+    
+    public static SQLiteDatabaseHelper Db { get; private set; }
 
     protected override Window CreateWindow(IActivationState? activationState)
     {

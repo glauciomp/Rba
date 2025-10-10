@@ -17,4 +17,5 @@ public class Usuario
     public string Senha { get; set; } = string.Empty;
 
     public string TipoUsuario { get; set; } = "Normal"; // Normal por padrão
+    public bool IsMaster { get; internal set; }
 }
