@@ -12,7 +12,7 @@ public partial class App : Application
         // Inicializa o banco de dados
         string dbPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "recicla.db3");
+            "rba.db3");
         Db = new SQLiteDatabaseHelper(dbPath);
         MainPage = new NavigationPage(new Pages.LoginPage());
     }

@@ -1,11 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Rba.Pages.UsuariosPage"
              Title="Usuários Cadastrados">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15">
 
-    <VerticalStackLayout Padding="30" Spacing="15">
-        
+        <!-- Aviso visual -->
+        <Label Text="Atenção: Excluir um usuário é uma ação irreversível. Clique no usuário que deseja excluir."
+               TextColor="Red"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
         <Button Text="Consultar" Clicked="OnConsultarClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
@@ -14,10 +20,12 @@
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
 
-        <CollectionView x:Name="UsuariosListView">
+        <CollectionView x:Name="UsuariosListView"
+                        SelectionMode="Single"
+                        SelectionChanged="OnUsuarioSelecionado">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BorderColor="LightGrey" Padding="10" Margin="5">
+                    <Frame BorderColor="LightGray" Padding="10" Margin="5">
                         <VerticalStackLayout Spacing="2">
                             <Label Text="{Binding ID}" FontAttributes="Bold"/>
                             <Label Text="{Binding NomeUsuario}" />
@@ -28,7 +36,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

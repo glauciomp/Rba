@@ -16,7 +16,7 @@ public partial class EditarPontoColeta : ContentPage
 
         string dbPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "recicla.db3");
+            "rba.db3");
 
         db = new SQLiteDatabaseHelper(dbPath);
 

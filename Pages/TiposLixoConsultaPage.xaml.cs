@@ -16,7 +16,7 @@ public partial class TiposLixoConsultaPage : ContentPage
 
         string dbPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "rba_database.db3");
+            "rba.db3");
 
         _db = new SQLiteDatabaseHelper(dbPath);
     }

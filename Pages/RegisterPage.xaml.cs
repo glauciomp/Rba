@@ -16,8 +16,8 @@ namespace Rba.Pages
             InitializeComponent();
             TipoUsuarioPicker.SelectedIndex = 0; // Normal por padrão
 
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
-            _db = new SQLiteDatabaseHelper(dbPath);
+           string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
+           _db = new SQLiteDatabaseHelper(dbPath);
         }
 
         private async void OnRegisterClicked(object sender, EventArgs e)
@@ -61,6 +61,7 @@ namespace Rba.Pages
             };
 
             await _db.InserirUsuarioAsync(usuario);
+          
 
             await DisplayAlert("Sucesso", $"Usuário {nome} cadastrado como {tipo}.", "OK");
 

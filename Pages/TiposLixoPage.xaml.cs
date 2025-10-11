@@ -16,7 +16,7 @@ namespace Rba.Pages
 
             string dbPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "rba_database.db3");
+                "rba.db3");
             _dbHelper = new SQLiteDatabaseHelper(dbPath);
         }
         private async void OnRegistrarClicked(object sender, EventArgs e)
@@ -54,6 +54,7 @@ namespace Rba.Pages
         {
             await Navigation.PushAsync(new TiposLixoConsultaPage());
         }
+
 
     }
 }

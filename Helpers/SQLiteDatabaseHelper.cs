@@ -25,8 +25,11 @@ public class SQLiteDatabaseHelper
         _database.CreateTableAsync<TipoLixo>()
             .ConfigureAwait(false)
             .GetAwaiter().GetResult();
+
         // criação da tabela ponto de coleta
-        _database.CreateTableAsync<PontoColeta>().Wait();
+        _database.CreateTableAsync<PontoColeta>()
+            .ConfigureAwait(false)
+            .GetAwaiter().GetResult();
     }
 
     public Task<int> InserirUsuarioAsync(Usuario usuario)
@@ -86,7 +89,10 @@ public class SQLiteDatabaseHelper
     {
         return _database.InsertAsync(pc);
     }
-
+    public Task<int> DeleteUsuarioAsync(int id)
+    {
+        return _database.Table<Usuario>().DeleteAsync(u => u.ID == id);
+    }
     public static class Sessao
     {
         public static Usuario UsuarioPage { get; private set; }
@@ -100,5 +106,7 @@ public class SQLiteDatabaseHelper
             UsuarioPage = null;
         }
         public static bool IsMaster => UsuarioPage != null && UsuarioPage.TipoUsuario == "Master";
+
+        
     }
 }
