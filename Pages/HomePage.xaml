@@ -37,10 +37,10 @@
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
-            <Button Text="Desafios Semanais"
+         <!--   <Button Text="Desafios Semanais"
                     Clicked="OnDesafiosClicked"
                     Background="{StaticResource PrimaryBrush}"
-                    TextColor="{StaticResource White}" />
+                    TextColor="{StaticResource White}" /> -->
 
             <Button Text="Sair"
                     Clicked="OnLogoutClicked"
