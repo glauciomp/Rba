@@ -1,7 +1,7 @@
-using Microsoft.Maui.Controls;
-using System;
-using Rba.Models; 
 using Rba.Helpers;
+using Rba.Models;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace Rba.Pages
@@ -9,6 +9,7 @@ namespace Rba.Pages
     public partial class TiposLixoPage : ContentPage
     {
         private readonly SQLiteDatabaseHelper _dbHelper;
+        private ObservableCollection<TipoLixo> tipoLixo = new ObservableCollection<TipoLixo>();
 
         public TiposLixoPage()
         {
@@ -18,6 +19,18 @@ namespace Rba.Pages
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "rba.db3");
             _dbHelper = new SQLiteDatabaseHelper(dbPath);
+            TiposLixoListView.ItemsSource = tipoLixo;
+
+        }
+       protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var dados = await _dbHelper.GetTiposLixosAsync();
+            tipoLixo.Clear();
+
+            foreach (var item in dados)
+                tipoLixo.Add(item);
         }
         private async void OnRegistrarClicked(object sender, EventArgs e)
         {
@@ -50,11 +63,34 @@ namespace Rba.Pages
             await Navigation.PopAsync();
         }
 
-        private async void OnConsultarTiposClicked(object sender, EventArgs e)
+        private async void Button_Editar(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TiposLixoConsultaPage());
+            try
+            {
+                Button btn = sender as Button;
+                if (btn?.BindingContext is TipoLixo tipoLixo )
+                {
+                    await Navigation.PushAsync(new EditarTipoLixoPage(tipoLixo));
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro ao Editar", ex.Message, "OK");
+            }
         }
 
-
+        private async void Button_Excluir(object sender, EventArgs e)
+        {
+            if (sender is Button btn && btn.BindingContext is TipoLixo tipoLixo)
+            {
+                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover{tipoLixo.ID}?", "Sim", "Não");
+                if (confirmar)
+                {
+                    await _dbHelper.DeleteTipoLixo(tipoLixo.ID);
+                   
+                    
+                }
+            }
+        }
     }
 }

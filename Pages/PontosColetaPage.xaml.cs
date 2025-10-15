@@ -9,16 +9,14 @@ public partial class PontosColetaPage : ContentPage
 {
     private readonly SQLiteDatabaseHelper db;
     ObservableCollection<PontoColeta> lista = new ObservableCollection<PontoColeta>();
-	public PontosColetaPage()
-	{
-		InitializeComponent();
+    public PontosColetaPage()
+    {
+        InitializeComponent();
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
         db = new SQLiteDatabaseHelper(dbPath);
 
         listaView.ItemsSource = lista;
-        // BindingContext para visibilidade do formulário
-        BindingContext = new { IsMaster = SQLiteDatabaseHelper.Sessao.IsMaster };
     }
 
     protected override async void OnAppearing()
@@ -34,12 +32,6 @@ public partial class PontosColetaPage : ContentPage
     // Salvar novo ponto (apenas admin)
     private async void Button_Salvar(object sender, EventArgs e)
     {
-        if (!SQLiteDatabaseHelper.Sessao.IsMaster)
-        {
-            await DisplayAlert("Acesso negado", "Somente administradores podem cadastrar pontos.", "OK");
-            return;
-        }
-
         string nome = nomeEntry.Text?.Trim() ?? "";
         string endereco = enderecoEntry.Text?.Trim() ?? "";
         string tipo = tipoEntry.Text?.Trim() ?? "";
@@ -81,6 +73,22 @@ public partial class PontosColetaPage : ContentPage
                 await db.Delete(ponto.Id);
                 lista.Remove(ponto);
             }
+        }
+    }
+
+    private async void Button_Editar(object sender, EventArgs e)
+    {
+        try
+        {
+            Button btn = sender as Button;
+            if (btn?.BindingContext is PontoColeta ponto)
+            {
+                await Navigation.PushAsync(new EditarPontoColeta(ponto));
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erro ao Editar", ex.Message, "OK");
         }
     }
 }

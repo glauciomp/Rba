@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Rba.Pages.EditarTipoLixoPage"
+             Title="Editar Tipo Lixo">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Editar Tipo de Lixo" FontSize="20" HorizontalOptions="Center" />
+
+            <Entry x:Name="CorEntry"
+                   Placeholder="Cor da Lixeira" />
+            <Entry x:Name="MaterialEntry"
+                   Placeholder="Tipo de Material" />
+            <Entry x:Name="OrigemEntry" 
+                   Placeholder="Classificação por Origem" />
+            <Entry x:Name="OrigemDescrEntry" 
+                   Placeholder="Descrição da Origem" />
+            <Entry x:Name="DestinoEntry" 
+                   Placeholder="Destino Ambiental" />
+            <Entry x:Name="ExemplosEntry"
+                   Placeholder="Exemplos" />
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
+                <Button Text="Salvar" 
+                        Clicked="Button_Salvar"
+                        BackgroundColor="#2E7D32" 
+                        TextColor="White"/>
+                <Button Text="Cancelar" 
+                        Clicked="Button_Cancelar"
+                        BackgroundColor="Gray"
+                        TextColor="White"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

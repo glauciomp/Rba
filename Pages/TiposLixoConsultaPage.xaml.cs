@@ -10,6 +10,8 @@ public partial class TiposLixoConsultaPage : ContentPage
 {
     private readonly SQLiteDatabaseHelper _db;
 
+    public bool IsMaster { get; set; } // Propriedade para Master
+
     public TiposLixoConsultaPage()
     {
         InitializeComponent();
@@ -19,9 +21,12 @@ public partial class TiposLixoConsultaPage : ContentPage
             "rba.db3");
 
         _db = new SQLiteDatabaseHelper(dbPath);
+        // Define se é Master
+        IsMaster = SQLiteDatabaseHelper.Sessao.IsMaster;
+        BindingContext = this;
     }
 
-    private async void OnConsultarClicked(object sender, EventArgs e)
+    protected async override void OnAppearing()
     {
         var tipos = await _db.GetTiposLixosAsync();
 
@@ -39,8 +44,14 @@ public partial class TiposLixoConsultaPage : ContentPage
         TiposLixoListView.ItemsSource = lista;
     }
 
+
     private async void OnVoltarClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
+    }
+
+    private async void OnRegistrarClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new TiposLixoPage());
     }
 }

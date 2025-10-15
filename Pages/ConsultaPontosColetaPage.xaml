@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Rba.Pages.ConsultaPontosColetaPage"
+             Title="Pontos de Coleta">
+   <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+                <Button Text="Voltar" Clicked="Button_Voltar"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
+
+                <Button Text="Registrar" 
+                        Clicked="Button_Registrar"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}"
+                        IsVisible="{Binding IsMaster}"/>
+
+            </HorizontalStackLayout>
+
+            <Label Text="Pontos de Coleta Cadastrados"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    HorizontalOptions="Center" />
+
+            <CollectionView x:Name="listaView"
+                SelectionMode="None"
+                HeightRequest="400">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#2E7D32"
+                               BorderColor="White"
+                               CornerRadius="10"
+                               Margin="5"
+                               Padding="10">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Nome}" FontAttributes="Bold" TextColor="White" />
+                                <Label Text="{Binding Endereco}" TextColor="White" />
+                                <Label Text="{Binding TipoLixo}" TextColor="White" />
+                                <Label Text="{Binding Contato}" TextColor="White" />
+                                <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

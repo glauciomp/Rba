@@ -3,21 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Rba.Pages.TiposLixoConsultaPage"
              Title="Tipos de Lixo Cadastrados">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15">
+        <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+            <Button Text="Voltar" 
+                    Clicked="OnVoltarClicked"
+                    Background="{StaticResource PrimaryBrush}"
+                    TextColor="{StaticResource White}" />
 
-    <VerticalStackLayout Padding="30" Spacing="15">
-
-        <Button Text="Consultar" Clicked="OnConsultarClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
-
-        <Button Text="Voltar" Clicked="OnVoltarClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
-
+            <Button Text="Resgitrar"
+                    Clicked="OnRegistrarClicked"
+                    Background="{StaticResource PrimaryBrush}"
+                    TextColor="{StaticResource White}"
+                    IsVisible="{Binding IsMaster}" />
+        </HorizontalStackLayout>
         <CollectionView x:Name="TiposLixoListView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BorderColor="LightGrey" Padding="10" Margin="5">
+                    <Frame BackgroundColor="Green" BorderColor="LightGrey" Padding="10" Margin="5">
                         <VerticalStackLayout Spacing="2">
                             <Label Text="{Binding Id}" FontAttributes="Bold"/>
                             <Label Text="{Binding Cor}" />
@@ -31,6 +35,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

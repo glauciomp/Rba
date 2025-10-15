@@ -1,9 +1,5 @@
-﻿using SQLite;
-using Rba.Models;
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Rba.Pages;
+﻿using Rba.Models;
+using SQLite;
 
 namespace Rba.Helpers;
 
@@ -52,7 +48,8 @@ public class SQLiteDatabaseHelper
     public Task<List<Usuario>> GetUsuariosAsync() =>
         _database.Table<Usuario>()
         .ToListAsync();
-
+    
+    // Tipo de lixo
     public Task<int> InserirTipoLixoAsync(TipoLixo tipoLixo)
     {
         tipoLixo.Cor = tipoLixo.Cor.Trim();
@@ -68,7 +65,17 @@ public class SQLiteDatabaseHelper
     public Task<List<TipoLixo>> GetTiposLixosAsync() =>
         _database.Table<TipoLixo>()
         .ToListAsync();
+    public Task<int> DeleteTipoLixo(int Id)
+    {
+        return _database.Table<TipoLixo>().DeleteAsync(i => i.ID == Id);
+    }
+    public Task<int> UpdateTl(TipoLixo tipoLixo)
+    {
+        string sql = "UPDATE TipoLixo SET Cor=?,Material = ?, Origem = ?,  OrigemDescricao = ?,  DestinoAmbiental = ?, Exemplos = ? WHERE ID = ? ";
+        return _database.ExecuteAsync(sql, tipoLixo.Cor, tipoLixo.Material, tipoLixo.Origem, tipoLixo.OrigemDescricao, tipoLixo.DestinoAmbiental, tipoLixo.Exemplos, tipoLixo.ID);
+    }
 
+    // POntos de coletas 
     public Task<List<PontoColeta>> GetAll()
     {
         return _database.Table<PontoColeta>().ToListAsync();
@@ -89,6 +96,8 @@ public class SQLiteDatabaseHelper
     {
         return _database.InsertAsync(pc);
     }
+
+    // Usuário
     public Task<int> DeleteUsuarioAsync(int id)
     {
         return _database.Table<Usuario>().DeleteAsync(u => u.ID == id);

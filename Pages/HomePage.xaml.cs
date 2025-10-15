@@ -14,12 +14,12 @@ namespace Rba.Pages
 
         private async void OnTiposLixoClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TiposLixoPage());
+            await Navigation.PushAsync(new TiposLixoConsultaPage());
         }
 
         private async void OnMapaClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PontosColetaPage());
+            await Navigation.PushAsync(new ConsultaPontosColetaPage());
         }
 
         private async void OnDesafiosClicked(object sender, EventArgs e)
