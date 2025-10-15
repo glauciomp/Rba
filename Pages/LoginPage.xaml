@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Rba.Views"
              x:Class="Rba.Pages.LoginPage"
              Title="Login">
 
-    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+    <!-- <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="CenterAndExpand"> -->
+    <ScrollView>
+        <ContentView Padding="30">
+            <VerticalStackLayout Spacing="15">
+                
+                <views:LogoView />
+              
+                <Entry x:Name="UserEntry" Placeholder="Usuário" />
+                <Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" />
 
-        <Image Source="logo.png" HeightRequest="150" VerticalOptions="Center" HorizontalOptions="Center"/>
-
-        <Label Text="Recicla Belém"
-               FontSize="28"
-               HorizontalOptions="Center"
-               TextColor="{StaticResource Primary}" />
-
-        <Entry x:Name="UserEntry" Placeholder="Usuário" />
-        <Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" />
-
-        <Button Text="Entrar" Clicked="OnLoginClicked"
+                <Button Text="Entrar" Clicked="OnLoginClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
 
-        <Button Text="Registrar" Clicked="OnRegisterClicked"
+                <Button Text="Registrar" Clicked="OnRegisterClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
 
-        <Button Text="Sair" Clicked="OnExitClicked"
+                <Button Text="Sair" Clicked="OnExitClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
 
-    </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ContentView>
+    </ScrollView>
 </ContentPage>

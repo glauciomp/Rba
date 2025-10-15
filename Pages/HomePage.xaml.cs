@@ -22,10 +22,10 @@ namespace Rba.Pages
             await Navigation.PushAsync(new ConsultaPontosColetaPage());
         }
 
-        private async void OnDesafiosClicked(object sender, EventArgs e)
+       /* private async void OnDesafiosClicked(object sender, EventArgs e)
         {
             await DisplayAlert("Desafios", "Funcionalidade de desafios ainda não implementada.", "OK");
-        }
+        } */
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {

@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+Ôªøusing Microsoft.Maui.Controls;
 using Rba.Helpers;
 using Rba.Models;
 using System;
@@ -18,18 +18,19 @@ namespace Rba.Pages
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-            // Aqui vai a lÛgica de login
-            string user = UserEntry.Text?.Trim();
-            string pass = PasswordEntry.Text?.Trim();
+            // Login
+            string? user = UserEntry.Text?.Trim();
+            string? pass = PasswordEntry.Text?.Trim();
 
             // Exemplo: se admin
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
             {
-                await DisplayAlert("AtenÁ„o", "Por favor, preencha usu·rio e senha.", "OK");
+                await DisplayAlert("Aten√ß√£o!", "Por favor, preencha usu√°rio e senha.", "OK");
+                LimparCampos();
                 return;
             }
 
-            // Verifica se È o admin fixo
+            // Verifica se √© o admin fixo
             if (user == "admin" && pass == "123")
             {
                 var admin = new Usuario
@@ -39,39 +40,63 @@ namespace Rba.Pages
                     Email = "admin@rba.com"
                 };
 
+
                 SQLiteDatabaseHelper.Sessao.IniciarSessao(admin);
-                await Navigation.PushAsync(new HomePage(admin.NomeUsuario, admin.TipoUsuario));
+
+                // Feedback de boas-vindas
+                await DisplayAlert("Bem-vindo!", $"Login realizado como" +
+                    $" {admin.NomeUsuario} ({admin.TipoUsuario})", "OK");
+
+                LimparCampos();
+                await Navigation.PushAsync
+                    (new HomePage(admin.NomeUsuario, admin.TipoUsuario));
                 return;
+
             }
 
             // Verifica no banco
             var usuario = await _db.ObterUsuarioPorNomeAsync(user);
-            if (usuario == null)
-            {
-                await DisplayAlert("Erro", "Usu·rio n„o encontrado.", "OK");
+            if (usuario == null || usuario.Senha != pass)
+            {               
+                await DisplayAlert("Aten√ß√£o!", "Usu√°rio ou senha inv√°lidos.", "OK");
+                LimparCampos();
                 return;
             }
 
-            if (usuario.Senha != pass)
-            {
-                await DisplayAlert("Erro", "Senha incorreta.", "OK");
-                return;
-            }
+            // Inicia sess√£o e vai para a HomePage
 
-            // Inicia sess„o e vai para a HomePage
             SQLiteDatabaseHelper.Sessao.IniciarSessao(usuario);
-            await Navigation.PushAsync(new HomePage(usuario.NomeUsuario, usuario.TipoUsuario));
+
+            // Feedback de boas-vindas
+            await DisplayAlert("Bem-vindo!", $"Login realizado como" +
+                $" {usuario.NomeUsuario} ({usuario.TipoUsuario})", "OK");
+
+            LimparCampos();
+            await Navigation.PushAsync(new HomePage
+                (usuario.NomeUsuario, usuario.TipoUsuario));
 
         }
 
         private async void OnRegisterClicked(object sender, EventArgs e)
         {
+            LimparCampos();
             await Navigation.PushAsync(new RegisterPage());
         }
 
         private void OnExitClicked(object sender, EventArgs e)
         {
-            Application.Current.Quit();
+            // Corrige CS8602: verifica se Application.Current √© nulo antes de chamar Quit()
+            if (Application.Current != null)
+            {
+                Application.Current.Quit();
+            }
+        }
+
+        // Limpa os campos de entrada
+        private void LimparCampos()
+        {
+            UserEntry.Text = string.Empty;
+            PasswordEntry.Text = string.Empty;
         }
     }
 }

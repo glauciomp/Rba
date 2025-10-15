@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Rba.Views"
              x:Class="Rba.Pages.RegisterPage"
              Title="Cadastro">
 
-    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Insira um nome de usuário:"/>
-            <Entry x:Name="NomeEntry" Placeholder="Usuário" />
-        </VerticalStackLayout>
+            <views:LogoView />
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Insira um e-mail válido:"/>
-            <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Insira um nome de usuário:"/>
+                <Entry x:Name="NomeEntry" Placeholder="Usuário" />
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Insira uma senha:"/>
-            <Entry x:Name="SenhaEntry" Placeholder="Senha" IsPassword="True" />
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Insira um e-mail válido:"/>
+                <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Spacing="2">
-            <Label Text="Tipo de usuário:"/>
-            <Picker x:Name="TipoUsuarioPicker">
-                <Picker.Items>
-                    <x:String>Normal</x:String>
-                    <x:String>Master</x:String>
-                </Picker.Items>
-            </Picker>
-        </VerticalStackLayout>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Insira uma senha:"/>
+                <Entry x:Name="SenhaEntry" Placeholder="Senha" IsPassword="True" />
+            </VerticalStackLayout>
 
-        <Button Text="Registrar" Clicked="OnRegisterClicked"
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Tipo de usuário:"/>
+                <Picker x:Name="TipoUsuarioPicker" SelectedItem="0">
+                    <Picker.Items>
+                        <x:String>Normal</x:String>
+                        <x:String>Master</x:String>
+                    </Picker.Items>
+                </Picker>
+            </VerticalStackLayout>
+
+            <Button Text="Registrar" Clicked="OnRegisterClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
 
 
-        <Button Text="Voltar" Clicked="OnExitClicked"
+            <Button Text="Voltar" Clicked="OnExitClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
 
 
-        <Button Text="Usuários Cadastrados" Clicked="OnUsuariosClicked"
+            <Button Text="Usuários Cadastrados" Clicked="OnUsuariosClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}"/>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
