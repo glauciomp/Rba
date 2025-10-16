@@ -91,4 +91,9 @@ public partial class PontosColetaPage : ContentPage
             await DisplayAlert("Erro ao Editar", ex.Message, "OK");
         }
     }
+
+    private async void Button_Voltar(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }

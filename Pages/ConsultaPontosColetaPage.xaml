@@ -26,13 +26,16 @@
             <CollectionView x:Name="listaView"
                 SelectionMode="None"
                 HeightRequest="400">
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#2E7D32"
-                               BorderColor="White"
-                               CornerRadius="10"
+                        
+                        <Border BackgroundColor="#2E7D32"
+                               Stroke="LightGray"
+                               StrokeThickness="1"
                                Margin="5"
                                Padding="10">
+                            
                             <VerticalStackLayout>
                                 <Label Text="{Binding Nome}" FontAttributes="Bold" TextColor="White" />
                                 <Label Text="{Binding Endereco}" TextColor="White" />
@@ -40,7 +43,9 @@
                                 <Label Text="{Binding Contato}" TextColor="White" />
                                 <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
                             </VerticalStackLayout>
-                        </Frame>
+                            
+                        </Border>
+                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

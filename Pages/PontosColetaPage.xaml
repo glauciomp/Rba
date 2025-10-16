@@ -6,7 +6,7 @@
              Title="Cadastro">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
             
             <views:LogoView />
 
@@ -25,7 +25,11 @@
                 <Label Text="Horário de término" />
                 <TimePicker x:Name="fimPicker" Time="18:00" />
 
-                <Button Text="Salvar" Clicked="Button_Salvar" />
+                <VerticalStackLayout Padding="30" Spacing="15">
+                    <Button Text="Salvar" Clicked="Button_Salvar" />
+                    <Button Text="Voltar" Clicked="Button_Voltar"/>
+                </VerticalStackLayout>
+
             </VerticalStackLayout>
 
             <!-- LISTA DE PONTOS: -->
@@ -58,8 +62,7 @@
                                             WidthRequest="80"
                                             Clicked="Button_Editar"
                                             BindingContext="{Binding .}" />
-
-                                    <!-- Botão excluir só para admin -->
+                                                                                                          <!-- Botão excluir só para admin -->
                                     <Button Text="Excluir"
                                         BackgroundColor="Red"
                                         TextColor="White"

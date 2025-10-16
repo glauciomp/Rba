@@ -4,10 +4,10 @@
               xmlns:views="clr-namespace:Rba.Views"
              x:Class="Rba.Pages.TiposLixoPage"
              Title="Tipos de Lixo">
-    
+
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
-            
+
             <views:LogoView/>
 
             <VerticalStackLayout Spacing="2">
@@ -50,39 +50,42 @@
                 <Entry x:Name="ExemplosEntry" 
                        Placeholder="Exemplos" 
                        Text="{Binding Exemplos}"/>
-                <Button Text="Registrar" 
+              
+                    <Button Text="Registrar" 
                         Clicked="OnRegistrarClicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
 
-                <Button Text="Limpar" 
+                    <Button Text="Limpar" 
                         Clicked="OnLimparClicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
 
-                <Button Text="Voltar" 
+                    <Button Text="Voltar" 
                         Clicked="OnVoltarClicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
-                
-                
+
             </VerticalStackLayout>
             <CollectionView x:Name="TiposLixoListView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="Green" BorderColor="LightGrey" Padding="10" Margin="5">
+                        <Border BackgroundColor="Green" 
+                                Stroke="LightGray" 
+                                StrokeThickness="1" 
+                                Padding="10" Margin="5">
+                            
                             <VerticalStackLayout Spacing="2">
-                                <Label Text="{Binding Id}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Cor}" />
-                                <Label Text="{Binding Material}" />
-                                <Label Text="{Binding Origem}" />
-                                <Label Text="{Binding OrigemDescricao}" />
-                                <Label Text="{Binding DestinoAmbiental}" />
-                                <Label Text="{Binding Exemplos}" />
-                           
+                                <Label Text="{Binding ID}" FontAttributes="Bold" TextColor="White"/>
+                                <Label Text="{Binding Cor}" TextColor="White"/>
+                                <Label Text="{Binding Material}" TextColor="White"/>
+                                <Label Text="{Binding Origem}" TextColor="White"/>
+                                <Label Text="{Binding OrigemDescricao}" TextColor="White"/>
+                                <Label Text="{Binding DestinoAmbiental}" TextColor="White"/>
+                                <Label Text="{Binding Exemplos}" TextColor="White"/>
 
-                            <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
-                                <Button Text="Editar"
+                                <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+                                    <Button Text="Editar"
                                         BackgroundColor="Wheat"
                                         TextColor="White"
                                         CornerRadius="8"
@@ -90,17 +93,18 @@
                                         Clicked="Button_Editar"
                                         BindingContext="{Binding .}" />
 
-                                <!-- Botão excluir só para admin -->
-                                <Button Text="Excluir"
+                                    <!-- Botão excluir só para admin -->
+                                    <Button Text="Excluir"
                                         BackgroundColor="Red"
                                         TextColor="White"
                                         CornerRadius="8"
                                         WidthRequest="80"
                                         Clicked="Button_Excluir"
                                         BindingContext="{Binding .}" />
-                            </HorizontalStackLayout>
+                                </HorizontalStackLayout>
+                                
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
