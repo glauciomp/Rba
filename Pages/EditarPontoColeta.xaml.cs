@@ -14,9 +14,7 @@ public partial class EditarPontoColeta : ContentPage
 
         ponto = pontoSelecionado;
 
-        string dbPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "rba.db3");
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
 
         db = new SQLiteDatabaseHelper(dbPath);
 

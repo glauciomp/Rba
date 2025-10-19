@@ -32,6 +32,7 @@ public partial class UsuariosPage : ContentPage
         await Navigation.PopAsync();
     }
 
+
     private void OnUsuarioSelecionado(object sender, SelectionChangedEventArgs e)
     {
         // CA1826: Use indexador ao invés de FirstOrDefault
@@ -60,6 +61,17 @@ public partial class UsuariosPage : ContentPage
 
             UsuariosListView.SelectedItem = null; // Limpa seleção
         });
+
+
     }
+
+    // Mostrar caminho do banco
+    /*
+    private async void OnVerCaminhoClicked(object sender, EventArgs e)
+    {
+        string caminho = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
+        await DisplayAlert("Caminho do banco", caminho, "OK");
+    }
+    */
 
 }

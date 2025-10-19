@@ -56,6 +56,8 @@ public partial class PontosColetaPage : ContentPage
         await db.Insert(ponto);
         lista.Add(ponto);
 
+        await DisplayAlert("Cadastro realizado!", $"Ponto de coleta \"{ponto.Nome}\" cadastrado com sucesso!", "OK");
+
         // Limpar campos
         nomeEntry.Text = enderecoEntry.Text = tipoEntry.Text = contatoEntry.Text = "";
         inicioPicker.Time = new TimeSpan(8, 0, 0);

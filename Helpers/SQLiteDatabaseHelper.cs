@@ -69,13 +69,14 @@ public class SQLiteDatabaseHelper
     {
         return _database.Table<TipoLixo>().DeleteAsync(i => i.ID == Id);
     }
+
     public Task<int> UpdateTl(TipoLixo tipoLixo)
     {
         string sql = "UPDATE TipoLixo SET Cor=?,Material = ?, Origem = ?,  OrigemDescricao = ?,  DestinoAmbiental = ?, Exemplos = ? WHERE ID = ? ";
         return _database.ExecuteAsync(sql, tipoLixo.Cor, tipoLixo.Material, tipoLixo.Origem, tipoLixo.OrigemDescricao, tipoLixo.DestinoAmbiental, tipoLixo.Exemplos, tipoLixo.ID);
     }
 
-    // POntos de coletas 
+    // Pontos de coletas 
     public Task<List<PontoColeta>> GetAll()
     {
         return _database.Table<PontoColeta>().ToListAsync();
@@ -87,9 +88,15 @@ public class SQLiteDatabaseHelper
         return _database.ExecuteAsync(sql, p.Nome, p.Endereco, p.TipoLixo, p.Contato, p.Horario, p.Id);
     }
 
-    public Task<int> Delete(int Id)
+   /* public Task<int> Delete(int Id)
     {
         return _database.Table<PontoColeta>().DeleteAsync(i => i.Id == Id);
+    }
+    */
+
+    public Task<int> Delete(int Id)
+    {
+        return _database.DeleteAsync<PontoColeta>(Id);
     }
 
     public Task<int> Insert(PontoColeta pc)

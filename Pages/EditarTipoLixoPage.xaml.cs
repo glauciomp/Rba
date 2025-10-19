@@ -12,9 +12,7 @@ public partial class EditarTipoLixoPage : ContentPage
 		InitializeComponent();
         _tipoLixo = tipoLixo;
 
-        string dbPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "rba.db3");
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
         _dbHelper = new SQLiteDatabaseHelper(dbPath);
 
         // Preencher campos com dados do objeto

@@ -15,9 +15,7 @@ namespace Rba.Pages
         {
             InitializeComponent();
 
-            string dbPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "rba.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
             _dbHelper = new SQLiteDatabaseHelper(dbPath);
             TiposLixoListView.ItemsSource = tipoLixo;
 
@@ -34,7 +32,17 @@ namespace Rba.Pages
         }
         private async void OnRegistrarClicked(object sender, EventArgs e)
         {
-            var tipoLixo = new TipoLixo
+            if (string.IsNullOrWhiteSpace(CorEntry.Text) ||
+                string.IsNullOrWhiteSpace(MaterialEntry.Text) ||
+                string.IsNullOrWhiteSpace(OrigemEntry.Text) ||
+                string.IsNullOrWhiteSpace(OrigemDescrEntry.Text) ||
+                string.IsNullOrWhiteSpace(DestinoEntry.Text) ||
+                string.IsNullOrWhiteSpace(ExemplosEntry.Text))
+            {
+                await DisplayAlert("Erro", "Por favor, preencha todos os campos.", "OK");
+                return;
+            }
+            var novoTipo = new TipoLixo
             {
                 Cor = CorEntry.Text,
                 Material = MaterialEntry.Text,
@@ -44,8 +52,23 @@ namespace Rba.Pages
                 Exemplos = ExemplosEntry.Text
             };
             
-            await _dbHelper.InserirTipoLixoAsync(tipoLixo);
+            await _dbHelper.InserirTipoLixoAsync(novoTipo);
             await DisplayAlert("Registro", "Tipo de lixo registrado.", "OK");
+
+            // Limpar campos
+            CorEntry.Text = string.Empty;
+            MaterialEntry.Text = string.Empty;
+            OrigemEntry.Text = string.Empty;
+            OrigemDescrEntry.Text = string.Empty;
+            DestinoEntry.Text = string.Empty;
+            ExemplosEntry.Text = string.Empty;
+
+            // Atualizar lista
+            var dados = await _dbHelper.GetTiposLixosAsync();
+            tipoLixo.Clear();
+            foreach (var item in dados)
+                tipoLixo.Add(item);
+
         }
 
         private void OnLimparClicked(object sender, EventArgs e)
@@ -81,14 +104,19 @@ namespace Rba.Pages
 
         private async void Button_Excluir(object sender, EventArgs e)
         {
-            if (sender is Button btn && btn.BindingContext is TipoLixo tipoLixo)
+            if (sender is Button btn && btn.BindingContext is TipoLixo itemSelecionado)
             {
-                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover{tipoLixo.ID}?", "Sim", "Não");
+                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover{itemSelecionado.ID}?", "Sim", "Não");
                 if (confirmar)
                 {
-                    await _dbHelper.DeleteTipoLixo(tipoLixo.ID);
-                   
-                    
+                    await _dbHelper.DeleteTipoLixo(itemSelecionado.ID);
+
+                    // Atualizar lista após exclusão
+                    var dados = await _dbHelper.GetTiposLixosAsync();
+                    tipoLixo.Clear();
+                    foreach (var item in dados)
+                        tipoLixo.Add(item);
+
                 }
             }
         }

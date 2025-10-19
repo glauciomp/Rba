@@ -23,6 +23,15 @@
             <Button Text="Voltar" Clicked="OnVoltarClicked"
                 Background="{StaticResource PrimaryBrush}"
                 TextColor="{StaticResource White}" />
+            
+            <!-- local do banco - exibir caminho do banco no app -->
+            <!--
+            <Button Text="Ver caminho do banco" Clicked="OnVerCaminhoClicked"
+                    BackgroundColor="DarkGreen"
+                    TextColor="White"
+                    Margin="10" />
+               -->
+
 
             <CollectionView x:Name="UsuariosListView"
                         SelectionMode="Single"
