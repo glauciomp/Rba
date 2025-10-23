@@ -9,7 +9,8 @@ namespace Rba.Pages
     public partial class TiposLixoPage : ContentPage
     {
         private readonly SQLiteDatabaseHelper _dbHelper;
-        private ObservableCollection<TipoLixo> tipoLixo = new ObservableCollection<TipoLixo>();
+        private ObservableCollection<TipoLixo> tipoLixo = new ();
+        private List<TipoLixo> todosTipos = new(); // Lista completa para busca
 
         public TiposLixoPage()
         {
@@ -20,14 +21,46 @@ namespace Rba.Pages
             TiposLixoListView.ItemsSource = tipoLixo;
 
         }
-       protected override async void OnAppearing()
+        /* // pré carrega o que já tem cadastrado 
+         protected override async void OnAppearing()
+         {
+             base.OnAppearing();
+
+             var dados = await _dbHelper.GetTiposLixosAsync();
+             tipoLixo.Clear();
+
+             foreach (var item in dados)
+                 tipoLixo.Add(item);
+         }*/
+
+        private async void OnConsultarClicked(object sender, EventArgs e)
         {
-            base.OnAppearing();
+            todosTipos = await _dbHelper.GetTiposLixosAsync();
+            AtualizarLista(todosTipos);
+            BuscarEntry.Text = ""; // limpa busca
+        }
 
-            var dados = await _dbHelper.GetTiposLixosAsync();
+        private void OnBuscarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string termo = e.NewTextValue?.ToLower() ?? "";
+
+            var filtrados = todosTipos.Where(t =>
+                t.ID.ToString().Contains(termo) ||
+                (t.Cor?.ToLower().Contains(termo) ?? false) ||
+                (t.Material?.ToLower().Contains(termo) ?? false) ||
+                (t.Origem?.ToLower().Contains(termo) ?? false) ||
+                (t.OrigemDescricao?.ToLower().Contains(termo) ?? false) ||
+                (t.DestinoAmbiental?.ToLower().Contains(termo) ?? false) ||
+                (t.Exemplos?.ToLower().Contains(termo) ?? false)
+            ).ToList();
+
+            AtualizarLista(filtrados);
+        }
+
+        private void AtualizarLista(List<TipoLixo> lista)
+        {
             tipoLixo.Clear();
-
-            foreach (var item in dados)
+            foreach (var item in lista)
                 tipoLixo.Add(item);
         }
         private async void OnRegistrarClicked(object sender, EventArgs e)

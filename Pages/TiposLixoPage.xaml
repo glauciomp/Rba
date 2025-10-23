@@ -50,8 +50,25 @@
                 <Entry x:Name="ExemplosEntry" 
                        Placeholder="Exemplos" 
                        Text="{Binding Exemplos}"/>
-              
-                    <Button Text="Registrar" 
+            </VerticalStackLayout>
+
+               <!-- botões de ação -->
+            <VerticalStackLayout Spacing="10"
+                                 Padding="0">
+                <Button Text="Consultar"
+                        Clicked="OnConsultarClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}"/>
+
+                <Entry x:Name="BuscarEntry"
+                       Placeholder="Clique em consultar para consultar todos e depois o termo que deseja buscar..."
+                       TextChanged="OnBuscarTextChanged"
+                       BackgroundColor="White"
+                       Margin="0,10,0,0"
+                       FontSize="12"
+                       TextColor="Black"/>
+
+                <Button Text="Registrar" 
                         Clicked="OnRegistrarClicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
@@ -65,8 +82,8 @@
                         Clicked="OnVoltarClicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
-
             </VerticalStackLayout>
+            
             <CollectionView x:Name="TiposLixoListView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

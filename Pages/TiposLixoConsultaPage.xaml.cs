@@ -3,12 +3,14 @@ using Rba.Models;
 using Rba.Helpers;
 using System.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Rba.Pages;
 
 public partial class TiposLixoConsultaPage : ContentPage
 {
     private readonly SQLiteDatabaseHelper _db;
+    private List<TipoLixo> todosTipos = new(); // Lista completa para busca
 
     public bool IsMaster { get; set; } // Propriedade para Master
 
@@ -17,18 +19,47 @@ public partial class TiposLixoConsultaPage : ContentPage
         InitializeComponent();
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
-
         _db = new SQLiteDatabaseHelper(dbPath);
-        // Define se é Master
+
         IsMaster = SQLiteDatabaseHelper.Sessao.IsMaster;
         BindingContext = this;
     }
 
-    protected async override void OnAppearing()
-    {
-        var tipos = await _db.GetTiposLixosAsync();
 
-        var lista = tipos.Select(t => new
+    /* protected override async void OnAppearing()
+    {
+        // opcional: carregar automaticamente ao abrir
+        todosTipos = await _db.GetTiposLixosAsync();
+        AtualizarLista(todosTipos);
+    }*/
+
+    private async void OnConsultarClicked(object sender, EventArgs e)
+    {
+        todosTipos = await _db.GetTiposLixosAsync();
+        AtualizarLista(todosTipos);
+        BuscarEntry.Text = ""; // limpa busca
+    }
+
+    private void OnConsultarTextChanged(object sender, TextChangedEventArgs e)
+    {
+        string termo = e.NewTextValue?.ToLower() ?? "";
+
+        var filtrados = todosTipos.Where(t =>
+            t.ID.ToString().Contains(termo) ||
+            (t.Cor?.ToLower().Contains(termo) ?? false) ||
+            (t.Material?.ToLower().Contains(termo) ?? false) ||
+            (t.Origem?.ToLower().Contains(termo) ?? false) ||
+            (t.OrigemDescricao?.ToLower().Contains(termo) ?? false) ||
+            (t.DestinoAmbiental?.ToLower().Contains(termo) ?? false) ||
+            (t.Exemplos?.ToLower().Contains(termo) ?? false)
+        ).ToList();
+
+        AtualizarLista(filtrados);
+    }
+
+    private void AtualizarLista(List<TipoLixo> lista)
+    {
+        TiposLixoListView.ItemsSource = lista.Select(t => new
         {
             t.ID,
             t.Cor,
@@ -38,10 +69,7 @@ public partial class TiposLixoConsultaPage : ContentPage
             t.DestinoAmbiental,
             t.Exemplos
         }).ToList();
-
-        TiposLixoListView.ItemsSource = lista;
     }
-
 
     private async void OnVoltarClicked(object sender, EventArgs e)
     {
