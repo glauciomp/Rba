@@ -33,7 +33,7 @@
             </HorizontalStackLayout>
 
             <Button Text="Salvar Alterações"
-                    BackgroundColor="#4CAF50"
+                    Background="{StaticResource PrimaryBrush}"
                     TextColor="White"
                     CornerRadius="8"
                     Clicked="OnSalvarClicked"/>

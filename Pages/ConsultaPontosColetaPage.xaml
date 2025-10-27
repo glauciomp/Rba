@@ -10,13 +10,25 @@
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
 
+                <Button Text="Consultar"
+                        Clicked="Button_Consultar"
+                        Background="{StaticResource Primary}"
+                        TextColor="{StaticResource White}"/>
+
                 <Button Text="Registrar" 
                         Clicked="Button_Registrar"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}"
                         IsVisible="{Binding IsMaster}"/>
-
             </HorizontalStackLayout>
+
+            <Entry x:Name="BuscarEntry"
+                   Placeholder="Clique em consultar para consultar todos e depois o termo que deseja buscar..."
+                   TextChanged="OnBuscarTextChanged"
+                   BackgroundColor="White"
+                   Margin="0,10,0,0"
+                   FontSize="12"
+                   TextColor="Black"/>
 
             <Label Text="Pontos de Coleta Cadastrados"
                     FontAttributes="Bold"
@@ -24,12 +36,11 @@
                     HorizontalOptions="Center" />
 
             <CollectionView x:Name="listaView"
-                SelectionMode="None"
-                HeightRequest="400">
+                            SelectionMode="None"
+                            HeightRequest="400">
                 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        
+                    <DataTemplate>                        
                         <Border BackgroundColor="#2E7D32"
                                Stroke="LightGray"
                                StrokeThickness="1"
@@ -42,10 +53,8 @@
                                 <Label Text="{Binding TipoLixo}" TextColor="White" />
                                 <Label Text="{Binding Contato}" TextColor="White" />
                                 <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
-                            </VerticalStackLayout>
-                            
-                        </Border>
-                        
+                            </VerticalStackLayout>                            
+                        </Border>                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
