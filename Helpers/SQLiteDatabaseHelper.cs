@@ -65,6 +65,7 @@ public class SQLiteDatabaseHelper
     public Task<List<TipoLixo>> GetTiposLixosAsync() =>
         _database.Table<TipoLixo>()
         .ToListAsync();
+
     public Task<int> DeleteTipoLixo(int Id)
     {
         return _database.Table<TipoLixo>().DeleteAsync(i => i.ID == Id);

@@ -14,16 +14,17 @@
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
+                <Button Text="Consultar"
+                        Clicked="OnConsultarClicked"
+                        Background="{x:StaticResource PrimaryBrush}"
+                        TextColor="{x:StaticResource White}" />
+
                 <Button Text="Resgitrar"
                     Clicked="OnRegistrarClicked"
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}"
                     IsVisible="{Binding IsMaster}" />
 
-                <Button Text="Consultar"
-                        Clicked="OnConsultarClicked"
-                        Background="{x:StaticResource PrimaryBrush}"
-                        TextColor="{x:StaticResource White}" />
             </HorizontalStackLayout>
             
             <!-- Campo de Busca -->
@@ -39,18 +40,30 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border BackgroundColor="Green" Stroke="LightGray" 
-                            StrokeThickness="1" 
-                            Padding="10" 
-                            Margin="5">
-                            <VerticalStackLayout Spacing="2">
-                                <Label Text="{Binding ID}" FontAttributes="Bold" TextColor="White"/>
-                                <Label Text="{Binding Cor}" TextColor="White"/>
-                                <Label Text="{Binding Material}" TextColor="White"/>
-                                <Label Text="{Binding Origem}" TextColor="White"/>
-                                <Label Text="{Binding OrigemDescricao}" TextColor="White"/>
-                                <Label Text="{Binding DestinoAmbiental}" TextColor="White"/>
-                                <Label Text="{Binding Exemplos}" TextColor="White"/>
-                            </VerticalStackLayout>
+                                StrokeThickness="1" 
+                                Padding="10" 
+                                Margin="5">
+
+                            <HorizontalStackLayout Spacing="10">
+
+                                <!-- imagem do cadastro lado esquerdo -->
+                                <Image Source="{Binding Imagem}"
+                                       WidthRequest="60"
+                                       HeightRequest="60"
+                                       Aspect="AspectFill" 
+                                       VerticalOptions="Start"/>
+
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding ID}" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="{Binding Cor}" TextColor="White"/>
+                                    <Label Text="{Binding Material}" TextColor="White"/>
+                                    <Label Text="{Binding Origem}" TextColor="White"/>
+                                    <Label Text="{Binding OrigemDescricao}" TextColor="White"/>
+                                    <Label Text="{Binding DestinoAmbiental}" TextColor="White"/>
+                                    <Label Text="{Binding Exemplos}" TextColor="White"/>
+                                </VerticalStackLayout>
+                                
+                            </HorizontalStackLayout>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

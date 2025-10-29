@@ -54,9 +54,9 @@
                                 <Label Text="{Binding Contato}" TextColor="White" />
                                 <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
 
-                                <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+                                <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
                                     <Button Text="Editar"
-                                            BackgroundColor="Wheat"
+                                            BackgroundColor="CornflowerBlue"
                                             TextColor="White"
                                             CornerRadius="8"
                                             WidthRequest="80"

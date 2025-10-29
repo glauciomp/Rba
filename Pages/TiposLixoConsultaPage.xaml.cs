@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 using Rba.Models;
 using Rba.Helpers;
 using System.Linq;
@@ -57,20 +57,35 @@ public partial class TiposLixoConsultaPage : ContentPage
         AtualizarLista(filtrados);
     }
 
+    // 🔧 ALTERADO: agora usamos TipoLixo diretamente e associamos imagem
     private void AtualizarLista(List<TipoLixo> lista)
     {
-        TiposLixoListView.ItemsSource = lista.Select(t => new
+        foreach (var item in lista)
         {
-            t.ID,
-            t.Cor,
-            t.Material,
-            t.Origem,
-            t.OrigemDescricao,
-            t.DestinoAmbiental,
-            t.Exemplos
-        }).ToList();
+            item.Imagem = ObterImagemPorMaterial(item.Material); // associa imagem
+        }
+
+        TiposLixoListView.ItemsSource = lista;
     }
 
+    // 🔧 NOVO: método para obter imagem com base no material
+    private string ObterImagemPorMaterial(string material)
+    {
+        return material?.ToLower() switch
+        {
+            "plástico" => "plastico.png",
+            "papel" => "papel.png",
+            "vidro" => "vidro.png",
+            "metal" => "metal.png",
+            "orgânico" => "organico.png",
+            "não reciclável" => "nao_reciclavel.png",
+            "madeira" => "madeira.png",
+            "resíduos perigosos" => "residuos_perigosos.png",
+            "hospitalar" => "hospitalar.png",
+            "radioativos" => "radioativos.png",
+            _ => "padrao.png"
+        };
+    }
     private async void OnVoltarClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
