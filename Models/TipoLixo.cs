@@ -18,6 +18,10 @@ namespace Rba.Models
         public string OrigemDescricao { get; set; } = string.Empty;
         public string DestinoAmbiental { get; set; } = string.Empty;
         public string Exemplos { get; set; } = string.Empty;
+
+        // mudança atual
+        // Caminho da imagem
+        public string Imagem { get; set; }
     }
    
 }

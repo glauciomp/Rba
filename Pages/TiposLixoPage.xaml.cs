@@ -1,4 +1,4 @@
-using Rba.Helpers;
+﻿using Rba.Helpers;
 using Rba.Models;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -21,7 +21,7 @@ namespace Rba.Pages
             TiposLixoListView.ItemsSource = tipoLixo;
 
         }
-        /* // pr� carrega o que j� tem cadastrado 
+        /* // pré carrega o que já tem cadastrado 
          protected override async void OnAppearing()
          {
              base.OnAppearing();
@@ -57,12 +57,44 @@ namespace Rba.Pages
             AtualizarLista(filtrados);
         }
 
+        /* private void AtualizarLista(List<TipoLixo> lista)
+         {
+             tipoLixo.Clear();
+             foreach (var item in lista)
+                 tipoLixo.Add(item);
+         } */
+
+        // método novo da imagem
         private void AtualizarLista(List<TipoLixo> lista)
         {
             tipoLixo.Clear();
             foreach (var item in lista)
+            {
+                // 🔧 Adição: associa imagem com base no material
+                item.Imagem = ObterImagemPorMaterial(item.Material);
                 tipoLixo.Add(item);
+            }
         }
+
+        // 🔧 Novo método: retorna o nome da imagem com base no material
+        private string ObterImagemPorMaterial(string material)
+        {
+            return material?.ToLower() switch
+            {
+                "plástico" => "plastico.png",
+                "papel" => "papel.png",
+                "vidro" => "vidro.png",
+                "metal" => "metal.png",
+                "orgânico" => "organico.png",
+                "não reciclável" => "nao_reciclavel.png",
+                "madeira" => "madeira.png",
+                "resíduos perigosos" => "residuos_perigosos.png",
+                "hospitalar" => "hospitalar.png",
+                "radioativos" => "radioativos.png",
+                _ => "padrao.png"
+            };
+        }
+
         private async void OnRegistrarClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(CorEntry.Text) ||
@@ -139,12 +171,12 @@ namespace Rba.Pages
         {
             if (sender is Button btn && btn.BindingContext is TipoLixo itemSelecionado)
             {
-                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover{itemSelecionado.ID}?", "Sim", "N�o");
+                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover{itemSelecionado.ID}?", "Sim", "Não");
                 if (confirmar)
                 {
                     await _dbHelper.DeleteTipoLixo(itemSelecionado.ID);
 
-                    // Atualizar lista ap�s exclus�o
+                    // Atualizar lista após exclusão
                     var dados = await _dbHelper.GetTiposLixosAsync();
                     tipoLixo.Clear();
                     foreach (var item in dados)
