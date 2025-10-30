@@ -1,4 +1,4 @@
-using Rba.Helpers;
+﻿using Rba.Helpers;
 using Rba.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,7 +23,7 @@ public partial class ConsultaPontosColetaPage : ContentPage
 
         listaView.ItemsSource = lista;
 
-        // Define se � Master
+        // Define se é Master
         IsMaster = SQLiteDatabaseHelper.Sessao.IsMaster;
         BindingContext = this;
     }
@@ -75,34 +75,54 @@ public partial class ConsultaPontosColetaPage : ContentPage
         await Navigation.PopAsync();
     }
 
-    }
-
-    /* Esta � a vers�o antiga, apagar depois de validar
-    protected async override void OnAppearing()
+    // buscar o endereço no google maps
+    private async void OnAbrirMapaClicked(object sender, EventArgs e)
     {
-        base.OnAppearing();
-        try
+        if (sender is Button btn && btn.BindingContext is PontoColeta ponto)
         {
-            lista.Clear();
-            var dados = await db.GetAll();
-            foreach (var item in dados)
-                lista.Add(item);
-            
+            if (!string.IsNullOrWhiteSpace(ponto.Endereco))
+            {
+                // Monta a URL do Google Maps
+                string enderecoFormatado = Uri.EscapeDataString(ponto.Endereco);
+                string url = $"https://www.google.com/maps/search/?api=1&query={enderecoFormatado}";
+
+                // Abre no navegador
+                await Launcher.Default.OpenAsync(url);
+            }
+            else
+            {
+                await DisplayAlert("Endereço inválido", "Este ponto não possui um endereço válido.", "OK");
+            }
         }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Errro ao iniciar lista", ex.Message, "OK");
-        }
-      
+    }
+}
+
+/* Esta é a versão antiga, apagar depois de validar
+protected async override void OnAppearing()
+{
+    base.OnAppearing();
+    try
+    {
+        lista.Clear();
+        var dados = await db.GetAll();
+        foreach (var item in dados)
+            lista.Add(item);
+
+    }
+    catch (Exception ex)
+    {
+        await DisplayAlert("Errro ao iniciar lista", ex.Message, "OK");
     }
 
-    private async void Button_Registrar(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new PontosColetaPage());
-    }
+}
 
-    private async void Button_Voltar(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
-    }
+private async void Button_Registrar(object sender, EventArgs e)
+{
+    await Navigation.PushAsync(new PontosColetaPage());
+}
+
+private async void Button_Voltar(object sender, EventArgs e)
+{
+    await Navigation.PopAsync();
+}
 }*/
