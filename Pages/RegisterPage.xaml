@@ -6,48 +6,61 @@
              Title="Cadastro">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+        <VerticalStackLayout Padding="30" 
+                             Spacing="15" 
+                             VerticalOptions="Center">
 
             <views:LogoView />
 
             <VerticalStackLayout Spacing="2">
                 <Label Text="Insira um nome de usuário:"/>
-                <Entry x:Name="NomeEntry" Placeholder="Usuário" />
+                <Entry x:Name="NomeEntry" 
+                       Placeholder="Usuário" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="2">
                 <Label Text="Insira um e-mail válido:"/>
-                <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
+                <Entry x:Name="EmailEntry" 
+                       Placeholder="Email" 
+                       Keyboard="Email" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="2">
                 <Label Text="Insira uma senha:"/>
-                <Entry x:Name="SenhaEntry" Placeholder="Senha" IsPassword="True" />
+                <Entry x:Name="SenhaEntry" 
+                       Placeholder="Senha" 
+                       IsPassword="True" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="2">
                 <Label Text="Tipo de usuário:"/>
-                <Picker x:Name="TipoUsuarioPicker" SelectedItem="0">
+                <Picker x:Name="TipoUsuarioPicker" 
+                        SelectedItem="0">
+                    
                     <Picker.Items>
                         <x:String>Normal</x:String>
                         <x:String>Master</x:String>
                     </Picker.Items>
+                    
                 </Picker>
             </VerticalStackLayout>
 
-            <Button Text="Registrar" Clicked="OnRegisterClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
+            <Button Text="Registrar"
+                    Clicked="OnRegisterClicked"
+                    Background="{StaticResource PrimaryBrush}"
+                    TextColor="{StaticResource White}" />
 
 
-            <Button Text="Voltar" Clicked="OnExitClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
+            <Button Text="Voltar" 
+                    Clicked="OnExitClicked"
+                    Background="{StaticResource PrimaryBrush}"                    
+                    TextColor="{StaticResource White}" />
 
 
-            <Button Text="Usuários Cadastrados" Clicked="OnUsuariosClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}"/>
+            <Button Text="Usuários Cadastrados" 
+                    Clicked="OnUsuariosClicked"
+                    Background="{StaticResource PrimaryBrush}"
+                    TextColor="{StaticResource White}"/>
 
         </VerticalStackLayout>
     </ScrollView>

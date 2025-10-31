@@ -4,9 +4,9 @@
              xmlns:views="clr-namespace:Rba.Views"
              x:Class="Rba.Pages.EditarPontoColeta"
              Title="Editar Ponto Coleta">
+    
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            
+        <VerticalStackLayout Padding="20" Spacing="15">            
             <views:LogoView />
 
             <Label Text="Editar Ponto de Coleta"
@@ -15,21 +15,32 @@
                    HorizontalOptions="Center"
                    Margin="0,10"/>
 
-            <Entry x:Name="nomeEntry" Placeholder="Nome do Ponto"/>
-            <Entry x:Name="enderecoEntry" Placeholder="Endereço"/>
-            <Entry x:Name="tipoEntry" Placeholder="Tipo de Lixo"/>
-            <Entry x:Name="contatoEntry" Placeholder="Contato"/>
+            <Entry x:Name="nomeEntry"
+                   Placeholder="Nome do Ponto"/>
+            
+            <Entry x:Name="enderecoEntry"
+                   Placeholder="Endereço"/>
+            
+            <Entry x:Name="tipoEntry"
+                   Placeholder="Tipo de Lixo"/>
+            
+            <Entry x:Name="contatoEntry"
+                   Placeholder="Contato"/>
 
             <HorizontalStackLayout Spacing="10">
+                
                 <VerticalStackLayout>
-                    <Label Text="Início" FontAttributes="Bold"/>
-                    <TimePicker x:Name="inicioPicker"/>
+                    <Label Text="Início"
+                           FontAttributes="Bold"/>
+                    <TimePicker x:Name="inicioPicker"/>                    
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Fim" FontAttributes="Bold"/>
+                    <Label Text="Fim"
+                           FontAttributes="Bold"/>
                     <TimePicker x:Name="fimPicker"/>
                 </VerticalStackLayout>
+                
             </HorizontalStackLayout>
 
             <Button Text="Salvar Alterações"
@@ -45,4 +56,5 @@
                     Clicked="OnCancelarClicked"/>
         </VerticalStackLayout>
     </ScrollView>
+    
 </ContentPage>

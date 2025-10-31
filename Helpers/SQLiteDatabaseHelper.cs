@@ -123,7 +123,6 @@ public class SQLiteDatabaseHelper
             UsuarioPage = null;
         }
         public static bool IsMaster => UsuarioPage != null && UsuarioPage.TipoUsuario == "Master";
-
-        
+                
     }
 }

@@ -15,17 +15,20 @@
                 <Entry x:Name="UserEntry" Placeholder="Usuário" />
                 <Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" />
 
-                <Button Text="Entrar" Clicked="OnLoginClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
+                <Button Text="Entrar" 
+                        Clicked="OnLoginClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
 
-                <Button Text="Registrar" Clicked="OnRegisterClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
+                <Button Text="Registrar" 
+                        Clicked="OnRegisterClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
 
-                <Button Text="Sair" Clicked="OnExitClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
+                <Button Text="Sair" 
+                        Clicked="OnExitClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
 
             </VerticalStackLayout>
         </ContentView>

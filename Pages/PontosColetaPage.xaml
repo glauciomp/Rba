@@ -6,8 +6,8 @@
              Title="Cadastro">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15">
-            
+        <VerticalStackLayout Padding="30" 
+                             Spacing="15">            
             <views:LogoView />
 
             <!-- FORMULÁRIO: somente admin -->
@@ -21,13 +21,22 @@
                 <Entry x:Name="contatoEntry" Placeholder="Contato" />
 
                 <Label Text="Horário de início" />
-                <TimePicker x:Name="inicioPicker" Time="08:00" />
+                <TimePicker x:Name="inicioPicker" 
+                            Time="08:00" />
+                
                 <Label Text="Horário de término" />
-                <TimePicker x:Name="fimPicker" Time="18:00" />
+                <TimePicker x:Name="fimPicker" 
+                            Time="18:00" />
 
-                <VerticalStackLayout Padding="30" Spacing="15">
-                    <Button Text="Salvar" Clicked="Button_Salvar" />
-                    <Button Text="Voltar" Clicked="Button_Voltar"/>
+                <VerticalStackLayout Padding="30" 
+                                     Spacing="15">
+                    
+                    <Button Text="Salvar" 
+                            Clicked="Button_Salvar" />
+                    
+                    <Button Text="Voltar" 
+                            Clicked="Button_Voltar"/>
+                    
                 </VerticalStackLayout>
 
             </VerticalStackLayout>
@@ -55,7 +64,8 @@
                                 <Label Text="{Binding Contato}" TextColor="White" />
                                 <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
 
-                                <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+                                <HorizontalStackLayout HorizontalOptions="Start" 
+                                                       Spacing="10">
                                     
                                     <Button Text="Editar"
                                             BackgroundColor="CornflowerBlue"

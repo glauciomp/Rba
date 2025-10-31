@@ -6,17 +6,20 @@
              Title="Usuários Cadastrados">
     
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15">
+        <VerticalStackLayout Padding="30"
+                             Spacing="15">
 
             <views:LogoView />
 
             <!-- Aviso visual -->
             <Label Text="Atenção! Excluir um usuário é uma ação irreversível. Clique no usuário que deseja excluir."
-                   FontSize="20" HorizontalTextAlignment="Center"
+                   FontSize="20"
+                   HorizontalTextAlignment="Center"
                    HorizontalOptions="Center"
                    TextColor="{StaticResource Primary}" />
 
-            <Button Text="Consultar" Clicked="OnConsultarClicked"
+            <Button Text="Consultar"
+                    Clicked="OnConsultarClicked"
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
@@ -28,9 +31,10 @@
                    FontSize="12"
                    TextColor="Black"/>
 
-            <Button Text="Voltar" Clicked="OnVoltarClicked"
-                Background="{StaticResource PrimaryBrush}"
-                TextColor="{StaticResource White}" />
+            <Button Text="Voltar"
+                    Clicked="OnVoltarClicked"
+                    Background="{StaticResource PrimaryBrush}"
+                    TextColor="{StaticResource White}" />
             
             <!-- local do banco - exibir caminho do banco no app -->
             <!--
@@ -42,21 +46,29 @@
 
 
             <CollectionView x:Name="UsuariosListView"
-                        SelectionMode="Single"
-                        SelectionChanged="OnUsuarioSelecionado">
+                            SelectionMode="Single"
+                            SelectionChanged="OnUsuarioSelecionado">
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <!-- Corrigido: Removido BorderColor, pois não existe essa propriedade no Border do .NET MAUI -->
-                        <Border Stroke="LightGray" StrokeThickness="1" Padding="10" Margin="5">
+                        <Border Stroke="LightGray"
+                                StrokeThickness="1"
+                                Padding="10"
+                                Margin="5">
+                            
                             <VerticalStackLayout Spacing="2">
-                                <Label Text="{Binding ID}" FontAttributes="Bold"/>
+                                <Label Text="{Binding ID}"
+                                       FontAttributes="Bold"/>
                                 <Label Text="{Binding NomeUsuario}" />
                                 <Label Text="{Binding Email}" />
                                 <Label Text="{Binding TipoUsuario}" />
                             </VerticalStackLayout>
+                            
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                
             </CollectionView>
         </VerticalStackLayout>
     </ScrollView>

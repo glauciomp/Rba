@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:views="clr-namespace:Rba.Views"
+             xmlns:views="clr-namespace:Rba.Views"
              x:Class="Rba.Pages.TiposLixoPage"
              Title="Tipos de Lixo a Cadastrar">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+        <VerticalStackLayout Padding="30" 
+                             Spacing="15" 
+                             VerticalOptions="Center">
 
             <views:LogoView/>
 
@@ -91,7 +93,8 @@
                         <Border BackgroundColor="Green" 
                                 Stroke="LightGray" 
                                 StrokeThickness="1" 
-                                Padding="10" Margin="5">
+                                Padding="10"
+                                Margin="5">
 
                             <HorizontalStackLayout Spacing="10">
                                 <!-- imagem do cadastro lado esquerdo -->
@@ -111,7 +114,8 @@
                                     <Label Text="{Binding DestinoAmbiental}" TextColor="White"/>
                                     <Label Text="{Binding Exemplos}" TextColor="White"/>
 
-                                    <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+                                    <HorizontalStackLayout HorizontalOptions="Start" 
+                                                           Spacing="10">
                                         
                                         <Button Text="Editar"
                                                 BackgroundColor="CornflowerBlue"
@@ -131,8 +135,10 @@
                                                 BindingContext="{Binding .}" />
                                         
                                     </HorizontalStackLayout>
+                                    
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
+                            
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

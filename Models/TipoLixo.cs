@@ -11,7 +11,6 @@ namespace Rba.Models
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-
         public string Cor { get; set; } = string.Empty;
         public string Material { get; set; } = string.Empty;
         public string Origem { get; set; } = string.Empty;

@@ -6,11 +6,14 @@
     
    <ScrollView>
        
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="20"
+                             Spacing="15">
             
-            <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="End"
+                                   Spacing="10">
                 
-                <Button Text="Voltar" Clicked="Button_Voltar"
+                <Button Text="Voltar"
+                        Clicked="Button_Voltar"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
 
@@ -64,7 +67,6 @@
                                 <!-- botão localizar no mapa - abre o navegador -->
                                 <HorizontalStackLayout HorizontalOptions="Start"
                                                        Spacing="10">
-
                                     <Button Text="Ver no mapa"                                        
                                             BackgroundColor="GreenYellow"
                                             TextColor="Black"                                        
@@ -72,9 +74,7 @@
                                             WidthRequest="150"
                                             Clicked="OnAbrirMapaClicked"
                                             BindingContext="{Binding .}"/>
-
                                 </HorizontalStackLayout>
-
                             </VerticalStackLayout>
 
                         </Border>

@@ -69,13 +69,11 @@ public partial class ConsultaPontosColetaPage : ContentPage
     {
         await Navigation.PushAsync(new PontosColetaPage());
     }
-
-    private async void Button_Voltar(object sender, EventArgs e)
+        private async void Button_Voltar(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
     }
-
-    // buscar o endereço no google maps
+        // buscar o endereço no google maps
     private async void OnAbrirMapaClicked(object sender, EventArgs e)
     {
         if (sender is Button btn && btn.BindingContext is PontoColeta ponto)

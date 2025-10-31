@@ -6,13 +6,15 @@
              Title="Tipos de Lixo Cadastrados">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15">
+        <VerticalStackLayout Padding="30" 
+                             Spacing="15">
             
-            <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="End" 
+                                   Spacing="10">
                 <Button Text="Voltar" 
-                    Clicked="OnVoltarClicked"
-                    Background="{StaticResource PrimaryBrush}"
-                    TextColor="{StaticResource White}" />
+                        Clicked="OnVoltarClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
 
                 <Button Text="Consultar"
                         Clicked="OnConsultarClicked"
@@ -20,10 +22,10 @@
                         TextColor="{x:StaticResource White}" />
 
                 <Button Text="Resgitrar"
-                    Clicked="OnRegistrarClicked"
-                    Background="{StaticResource PrimaryBrush}"
-                    TextColor="{StaticResource White}"
-                    IsVisible="{Binding IsMaster}" />
+                        Clicked="OnRegistrarClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}"
+                        IsVisible="{Binding IsMaster}" />
 
             </HorizontalStackLayout>
             
@@ -39,13 +41,13 @@
             <CollectionView x:Name="TiposLixoListView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border BackgroundColor="Green" Stroke="LightGray" 
+                        <Border BackgroundColor="Green" 
+                                Stroke="LightGray" 
                                 StrokeThickness="1" 
                                 Padding="10" 
                                 Margin="5">
 
                             <HorizontalStackLayout Spacing="10">
-
                                 <!-- imagem do cadastro lado esquerdo -->
                                 <Image Source="{Binding Imagem}"
                                        WidthRequest="60"
@@ -64,6 +66,7 @@
                                 </VerticalStackLayout>
                                 
                             </HorizontalStackLayout>
+                            
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
