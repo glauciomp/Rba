@@ -1,7 +1,8 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Controls.Maps; 
 using Microsoft.Maui.Hosting;
-
+using Microsoft.Maui.Maps;
 namespace Rba;
 
 public static class MauiProgram
@@ -11,6 +12,8 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiMaps()
+
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

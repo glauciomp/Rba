@@ -16,5 +16,6 @@ namespace Rba.Models
         public string TipoLixo { get; set; }
         public string Contato { get; set; }
         public string Horario { get; set; }
+       
     }
 }

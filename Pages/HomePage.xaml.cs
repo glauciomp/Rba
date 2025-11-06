@@ -9,7 +9,7 @@ namespace Rba.Pages
         {
             InitializeComponent();
             lblBoasVindas.Text = $"Bem-vindo, {nomeUsuario}!";
-            lblTipoUsuario.Text = $"Tipo de usuário: {tipoUsuario}";
+            lblTipoUsuario.Text = $"Tipo de usuï¿½rio: {tipoUsuario}";
         }
 
         private async void OnTiposLixoClicked(object sender, EventArgs e)
@@ -17,15 +17,15 @@ namespace Rba.Pages
             await Navigation.PushAsync(new TiposLixoConsultaPage());
         }
 
-        private async void OnMapaClicked(object sender, EventArgs e)
+        private async void OnPontosColetaClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ConsultaPontosColetaPage());
         }
 
-       /* private async void OnDesafiosClicked(object sender, EventArgs e)
+        private async void OnMapaClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Desafios", "Funcionalidade de desafios ainda não implementada.", "OK");
-        } */
+            await Navigation.PushAsync(new MapaPontosColetaPage());
+        } 
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {

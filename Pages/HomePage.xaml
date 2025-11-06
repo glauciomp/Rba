@@ -36,15 +36,15 @@
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
-            <Button Text="Mapa de Pontos de Coleta"
-                    Clicked="OnMapaClicked"
+            <Button Text="Pontos de Coleta"
+                    Clicked="OnPontosColetaClicked"
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
-         <!--   <Button Text="Desafios Semanais"
-                    Clicked="OnDesafiosClicked"
+            <Button Text="Mapa Ponto de Coleta"
+                    Clicked="OnMapaClicked"
                     Background="{StaticResource PrimaryBrush}"
-                    TextColor="{StaticResource White}" /> -->
+                    TextColor="{StaticResource White}" />
 
             <Button Text="Sair"
                     Clicked="OnLogoutClicked"

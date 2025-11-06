@@ -40,7 +40,7 @@ public partial class PontosColetaPage : ContentPage
 
         if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(endereco))
         {
-            await DisplayAlert("Erro", "Preencha pelo menos nome e endereço.", "OK");
+            await DisplayAlert("Erro", "Preencha pelo menos nome e endereï¿½o.", "OK");
             return;
         }
 
@@ -69,7 +69,7 @@ public partial class PontosColetaPage : ContentPage
     {
         if (sender is Button btn && btn.BindingContext is PontoColeta ponto)
         {
-            bool confirmar = await DisplayAlert("Excluir", $"Deseja excluir {ponto.Nome}?", "Sim", "Não");
+            bool confirmar = await DisplayAlert("Excluir", $"Deseja excluir {ponto.Nome}?", "Sim", "Nï¿½o");
             if (confirmar)
             {
                 await db.Delete(ponto.Id);

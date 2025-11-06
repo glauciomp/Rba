@@ -1,6 +1,7 @@
 ﻿using Rba.Helpers;
 using Rba.Models;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -91,36 +92,7 @@ public partial class ConsultaPontosColetaPage : ContentPage
             {
                 await DisplayAlert("Endereço inválido", "Este ponto não possui um endereço válido.", "OK");
             }
+          
         }
     }
 }
-
-/* Esta é a versão antiga, apagar depois de validar
-protected async override void OnAppearing()
-{
-    base.OnAppearing();
-    try
-    {
-        lista.Clear();
-        var dados = await db.GetAll();
-        foreach (var item in dados)
-            lista.Add(item);
-
-    }
-    catch (Exception ex)
-    {
-        await DisplayAlert("Errro ao iniciar lista", ex.Message, "OK");
-    }
-
-}
-
-private async void Button_Registrar(object sender, EventArgs e)
-{
-    await Navigation.PushAsync(new PontosColetaPage());
-}
-
-private async void Button_Voltar(object sender, EventArgs e)
-{
-    await Navigation.PopAsync();
-}
-}*/

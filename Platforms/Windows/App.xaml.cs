@@ -20,6 +20,8 @@ namespace Rba.WinUI
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
+      
     }
 
 }

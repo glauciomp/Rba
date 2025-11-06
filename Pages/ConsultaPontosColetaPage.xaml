@@ -65,6 +65,7 @@
                                 <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
 
                                 <!-- botão localizar no mapa - abre o navegador -->
+                                
                                 <HorizontalStackLayout HorizontalOptions="Start"
                                                        Spacing="10">
                                     <Button Text="Ver no mapa"                                        
