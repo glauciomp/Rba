@@ -9,7 +9,7 @@ namespace Rba.Pages
         {
             InitializeComponent();
             lblBoasVindas.Text = $"Bem-vindo, {nomeUsuario}!";
-            lblTipoUsuario.Text = $"Tipo de usu�rio: {tipoUsuario}";
+            lblTipoUsuario.Text = $"Tipo de usuário: {tipoUsuario}";
         }
 
         private async void OnTiposLixoClicked(object sender, EventArgs e)
