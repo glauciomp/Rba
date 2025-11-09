@@ -41,7 +41,7 @@
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
-            <Button Text="Mapa Ponto de Coleta"
+            <Button Text="Mapa Pontos de Coleta"
                     Clicked="OnMapaClicked"
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
