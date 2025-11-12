@@ -8,7 +8,7 @@
 
 		<meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="SUA_CHAVE_API" />
+            android:value="Chave_API" /> 
 
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

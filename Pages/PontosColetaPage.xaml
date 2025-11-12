@@ -46,7 +46,7 @@
                    FontSize="18"
                    HorizontalOptions="Center" />
 
-            <CollectionView x:Name="listaView"
+            <CollectionView x:Name="listaView" 
                             SelectionMode="None"
                             HeightRequest="400">
                 <CollectionView.ItemTemplate>

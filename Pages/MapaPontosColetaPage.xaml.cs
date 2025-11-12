@@ -3,12 +3,15 @@ using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Maps;
 using Rba.Helpers;
 using Rba.Models;
+using System.Text.Json;
 
 namespace Rba.Pages;
 
 public partial class MapaPontosColetaPage : ContentPage
 {
     private SQLiteDatabaseHelper db;
+    private Location userLocation;
+    private string apiKey = "Chave_API"; // substitua pela sua
 
     public MapaPontosColetaPage()
     {
@@ -16,10 +19,7 @@ public partial class MapaPontosColetaPage : ContentPage
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
         db = new SQLiteDatabaseHelper(dbPath);
-
         CarregarPontos();
-
-       
     }
 
     private async void CarregarPontos(List<PontoColeta>? pontos = null)
@@ -44,25 +44,18 @@ public partial class MapaPontosColetaPage : ContentPage
                             Label = ponto.Nome,
                             Address = ponto.Endereco,
                             Location = new Location(location.Latitude, location.Longitude),
-                            Type = PinType.Place
+                            Type = PinType.Place,
+                            BindingContext = ponto
                         };
-                        pin.BindingContext = ponto;
-                        pin.MarkerClicked += Pin_MarkerClicked; // Adiciona o evento para o ícone
-                        pin.InfoWindowClicked += Pin_InfoWindowClicked; // Adiciona o evento para o balão
 
-                        
-                       
+                        pin.InfoWindowClicked += Pin_InfoWindowClicked;
                         mapa.Pins.Add(pin);
                     }
                 }
             }
 
-            // Centraliza no primeiro pin
             if (mapa.Pins.Count > 0)
-            {
-                var firstPin = mapa.Pins.First();
-                mapa.MoveToRegion(MapSpan.FromCenterAndRadius(firstPin.Location, Distance.FromKilometers(5)));
-            }
+                mapa.MoveToRegion(MapSpan.FromCenterAndRadius(mapa.Pins.First().Location, Distance.FromKilometers(5)));
         }
         catch (Exception ex)
         {
@@ -72,29 +65,21 @@ public partial class MapaPontosColetaPage : ContentPage
 
     private async void Pin_InfoWindowClicked(object? sender, PinClickedEventArgs e)
     {
-        // Obtém o Pin que foi clicado
         var pin = sender as Pin;
-
-        // obter o objeto PontoColeta 
         if (pin?.BindingContext is PontoColeta ponto)
         {
-           
-            string mensagem =
+                await DisplayAlert(ponto.Nome,
                 $"Endereço: {ponto.Endereco}\n" +
-                $"Tipo de Lixo: {ponto.TipoLixo}" +
+                $"Tipo: {ponto.TipoLixo}\n" +
                 $"Contato: {ponto.Contato}\n" +
-                $"Horário: {ponto.Horario}";
+                $"Horário: {ponto.Horario}",
+                "Fechar");
 
-            await DisplayAlert(ponto.Nome, mensagem, "OK");
         }
-
     }
 
-    private void Pin_MarkerClicked(object? sender, PinClickedEventArgs e)
-    {
-        Pin_InfoWindowClicked(sender, e);
-    }
 
+    // Localização do Usuário
     private async void Button_MinhaLocalizacao_Clicked(object sender, EventArgs e)
     {
         try
@@ -105,29 +90,96 @@ public partial class MapaPontosColetaPage : ContentPage
 
             if (status != PermissionStatus.Granted)
             {
-                await DisplayAlert("Permissão negada", "Não foi possível acessar a localização.", "OK");
+                await DisplayAlert("Permissão negada", "Não foi possível acessar a localização. Verifique se o aplicativo tem permissão para usar o GPS.", "OK");
                 return;
             }
 
             var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-            var location = await Geolocation.GetLocationAsync(request);
 
-            if (location != null)
+            try
             {
-                var userLocation = new Location(location.Latitude, location.Longitude);
+                userLocation = await Geolocation.GetLocationAsync(request);
+            }
+            catch (FeatureNotEnabledException)
+            {
+                await DisplayAlert("Localização desativada",
+                    "O GPS do seu dispositivo está desligado. Ative a localização nas configurações para usar esta função.",
+                    "OK");
+                return;
+            }
+
+            if (userLocation != null)
+            {
                 mapa.MoveToRegion(MapSpan.FromCenterAndRadius(userLocation, Distance.FromKilometers(5)));
-                await DisplayAlert("Localização", $"Você está aqui: {location.Latitude}, {location.Longitude}", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Aviso", "Não foi possível determinar sua localização atual.", "OK");
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erro", $"Não foi possível obter a localização: {ex.Message}", "OK");
+            await DisplayAlert("Erro", $"Ocorreu um erro ao tentar obter a localização:\n{ex.Message}", "OK");
         }
     }
-
-    private void Button_AtualizarPontos_Clicked(object sender, EventArgs e)
+    // Filtrar Pontos Próximos
+    private async void Button_PontosProximos_Clicked(object sender, EventArgs e)
     {
-        CarregarPontos();
+        if (userLocation == null)
+        {
+            await DisplayAlert("Aviso", "Primeiro obtenha sua localização.", "OK");
+            return;
+        }
+
+        var todos = await db.GetAll();
+
+        // Calcula a distância e ordena
+        var proximos = todos
+            .Where(p => p.Latitude != 0 && p.Longitude != 0)
+            .Select(p => new
+            {
+                Ponto = p,
+                Distancia = Location.CalculateDistance(userLocation, new Location(p.Latitude, p.Longitude), DistanceUnits.Kilometers)
+            })
+            .OrderBy(x => x.Distancia)
+            .Take(2) // pega apenas os 2 mais próximos
+            .Select(x => x.Ponto)
+            .ToList();
+
+        if (proximos.Count == 0)
+        {
+            await DisplayAlert("Aviso", "Nenhum ponto de coleta encontrado próximo da sua localização.", "OK");
+            return;
+        }
+
+        CarregarPontos(proximos);
+    }
+
+    // Filtrar por tipo de lixo
+    private async void Button_FiltrarTipo_Clicked(object sender, EventArgs e)
+    {
+        var tipos = new[] { "Todos", "Plástico", "Papel", "Vidro", "Metal", "Orgânico",
+                        "Não reciclável", "Madeira", "Resíduos", "Perigosos",
+                        "Hospitalar", "Radioativos" };
+
+        var tipoSelecionado = await DisplayActionSheet("Selecione o tipo de resíduo", "Cancelar", null, tipos);
+
+        // Se o usuário cancelar, não faz nada
+        if (tipoSelecionado == "Cancelar")
+            return;
+
+        var todos = await db.GetAll();
+
+        // Se selecionar "Todos", mostra todos os pontos
+        if (tipoSelecionado == "Todos")
+        {
+            CarregarPontos(todos);
+            return;
+        }
+
+        // Caso contrário, filtra normalmente
+        var filtrados = todos.Where(p => p.TipoLixo == tipoSelecionado).ToList();
+        CarregarPontos(filtrados);
     }
 
     private async void Button_Voltar(object sender, EventArgs e)

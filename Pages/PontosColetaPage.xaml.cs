@@ -43,6 +43,28 @@ public partial class PontosColetaPage : ContentPage
             await DisplayAlert("Erro", "Preencha pelo menos nome e endere�o.", "OK");
             return;
         }
+        // coordenadas via Geocoding
+        double latitude = 0;
+        double longitude = 0;
+
+        try
+        {
+            var locations = await Geocoding.GetLocationsAsync(endereco);
+            var location = locations?.FirstOrDefault();
+            if (location != null)
+            {
+                latitude = location.Latitude;
+                longitude = location.Longitude;
+            }
+            else
+            {
+                await DisplayAlert("Aviso", "Não foi possível obter coordenadas para este endereço.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erro de Geocodificação", ex.Message, "OK");
+        }
 
         var ponto = new PontoColeta
         {
@@ -50,7 +72,9 @@ public partial class PontosColetaPage : ContentPage
             Endereco = endereco,
             TipoLixo = tipo,
             Contato = contato,
-            Horario = horario
+            Horario = horario,
+            Latitude = latitude,
+            Longitude = longitude
         };
 
         await db.Insert(ponto);
@@ -69,7 +93,7 @@ public partial class PontosColetaPage : ContentPage
     {
         if (sender is Button btn && btn.BindingContext is PontoColeta ponto)
         {
-            bool confirmar = await DisplayAlert("Excluir", $"Deseja excluir {ponto.Nome}?", "Sim", "N�o");
+            bool confirmar = await DisplayAlert("Excluir", $"Deseja excluir {ponto.Nome}?", "Sim", "Não");
             if (confirmar)
             {
                 await db.Delete(ponto.Id);

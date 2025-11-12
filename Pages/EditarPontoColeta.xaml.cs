@@ -43,7 +43,7 @@ public partial class EditarPontoColeta : ContentPage
 
             if (fim <= inicio)
             {
-                await DisplayAlert("Erro", "O hor�rio de t�rmino deve ser maior que o de in�cio.", "OK");
+                await DisplayAlert("Erro", "O horário de término deve ser maior que o de início.", "OK");
                 return;
             }
 
@@ -53,6 +53,10 @@ public partial class EditarPontoColeta : ContentPage
             ponto.Contato = contatoEntry.Text;
             ponto.Horario = $"{inicio:hh\\:mm} - {fim:hh\\:mm}";
 
+            // Se o endereço mudou, atualiza as coordenadas
+            await AtualizarCoordenadasSeNecessario();
+
+
             await db.Update(ponto);
 
             await DisplayAlert("Sucesso", "Ponto atualizado com sucesso!", "OK");
@@ -60,13 +64,35 @@ public partial class EditarPontoColeta : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Erro", ex.Message, "OK");
+            await DisplayAlert("Erro", $"Falha ao salvar alterações", "OK");
         }
     }
+    // Atualiza latitude e longitude se o endereço foi alterado
+    private async Task AtualizarCoordenadasSeNecessario()
+    {
+        try
+        {
+            var positions = await Geocoding.GetLocationsAsync(ponto.Endereco);
+            var location = positions?.FirstOrDefault();
 
+            if (location != null)
+            {
+                ponto.Latitude = location.Latitude;
+                ponto.Longitude = location.Longitude;
+            }
+            else
+            {
+                await DisplayAlert("Aviso", "Não foi possível atualizar as coordenadas com base no endereço informado.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erro de Geolocalização", $"Não foi possível obter coordenadas: {ex.Message}", "OK");
+        }
+    }
     private async void OnCancelarClicked(object sender, EventArgs e)
     {
-        bool cancelar = await DisplayAlert("Cancelar edi��o", "Deseja sair sem salvar?", "Sim", "N�o");
+        bool cancelar = await DisplayAlert("Cancelar edi��o", "Deseja sair sem salvar?", "Sim", "Não");
         if (cancelar)
             await Navigation.PopAsync();
     }
