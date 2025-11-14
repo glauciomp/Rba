@@ -69,25 +69,53 @@
             </VerticalStackLayout>
 
             <!-- LISTA DE PONTOS -->
-            <CollectionView x:Name="listaView" SelectionMode="None" HeightRequest="400">
+            <CollectionView x:Name="listaView" 
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand"
+                            IsVisible="False">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border BackgroundColor="Green"
                                 Stroke="LightGray"
                                 StrokeThickness="1"
                                 Padding="10"
-                                Margin="5">
+                                Margin="5"
+                                HorizontalOptions="FillAndExpand">
 
-                            <HorizontalStackLayout Spacing="10">
-                                <!-- informações do cadastro -->
-                                <VerticalStackLayout Spacing="2">
-                                    <Label Text="{Binding Nome}" FontAttributes="Bold" TextColor="White"/>
-                                    <Label Text="{Binding Endereco}" TextColor="White"/>
-                                    <Label Text="{Binding TipoLixo}" TextColor="White"/>
-                                    <Label Text="{Binding Contato}" TextColor="White"/>
-                                    <Label Text="{Binding Horario}" FontSize="12" TextColor="White"/>
+                            <!-- Coluna única elástica para garantir largura e wrap -->
+                            <Grid ColumnDefinitions="*">
+                                <VerticalStackLayout Grid.Column="0"
+                                                     Spacing="4"
+                                                     HorizontalOptions="FillAndExpand">
 
-                                    <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+                                    <Label Text="{Binding Nome}"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding Endereco}"
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding TipoLixo}"
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding Contato}"
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding Horario}"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <HorizontalStackLayout HorizontalOptions="Start" Spacing="10" Margin="0,4,0,0">
                                         <Button Text="Editar"
                                                 BackgroundColor="CornflowerBlue"
                                                 TextColor="White"
@@ -105,7 +133,7 @@
                                                 BindingContext="{Binding .}" />
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                            </HorizontalStackLayout>
+                            </Grid>
 
                         </Border>
                     </DataTemplate>

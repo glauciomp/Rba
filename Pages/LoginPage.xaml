@@ -4,15 +4,14 @@
              xmlns:views="clr-namespace:Rba.Views"
              x:Class="Rba.Pages.LoginPage"
              Title="Login">
-
-    <!-- <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="CenterAndExpand"> -->
+   
     <ScrollView>
         <ContentView Padding="30">
             <VerticalStackLayout Spacing="15">
                 
                 <views:LogoView />
               
-                <Entry x:Name="UserEntry" Placeholder="Usuário" />
+                <Entry x:Name="UserEntry" Placeholder="Usuário" />                
                 <Entry x:Name="PasswordEntry" Placeholder="Senha" IsPassword="True" />
 
                 <Button Text="Entrar" 

@@ -21,6 +21,18 @@ namespace Rba.Pages
             TiposLixoListView.ItemsSource = tipoLixo;
         }
 
+        // Atualiza lista sempre que a tela volta a aparecer
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (todosTipos.Any())
+            {
+                todosTipos = await _dbHelper.GetTiposLixosAsync();
+                AtualizarLista(todosTipos);
+            }
+        }
+
         private async void OnConsultarClicked(object sender, EventArgs e)
         {
             todosTipos = await _dbHelper.GetTiposLixosAsync();
@@ -126,7 +138,7 @@ namespace Rba.Pages
             DestinoPicker.SelectedIndex = -1; // Limpa seleção do Picker
             ExemplosEntry.Text = string.Empty;
             BuscarEntry.Text = string.Empty; // Lambém limpa busca
-            TiposLixoListView.ItemsSource = null;
+            tipoLixo.Clear();
         }
 
         private async void OnVoltarClicked(object sender, EventArgs e)

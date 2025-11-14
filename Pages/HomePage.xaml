@@ -6,8 +6,7 @@
              Title="Recicla Belém">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" 
-                             Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
 
             <views:LogoView />
 

@@ -5,45 +5,74 @@
              x:Class="Rba.Pages.MapaPontosColetaPage"
              Title="Mapa Pontos de Coleta">
 
-    <Grid>
+    <!-- Grid com 3 linhas: Picker, Mapa, Botões -->
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Picker de filtro -->
+        <Picker x:Name="TipoPicker"
+                Title="Selecione o tipo de resíduo"
+                SelectedIndexChanged="TipoPicker_SelectedIndexChanged"
+                Grid.Row="0"
+                Margin="10">
+            <Picker.Items>
+                <x:String>Todos</x:String>
+                <x:String>Plástico</x:String>
+                <x:String>Papel</x:String>
+                <x:String>Vidro</x:String>
+                <x:String>Metal</x:String>
+                <x:String>Orgânico</x:String>
+                <x:String>Não reciclável</x:String>
+                <x:String>Madeira</x:String>
+                <x:String>Resíduos Perigosos</x:String>
+                <x:String>Hospitalar</x:String>
+                <x:String>Radioativos</x:String>
+            </Picker.Items>
+        </Picker>
 
         <!-- Mapa interativo -->
         <maps:Map x:Name="mapa"
+                  Grid.Row="1"
                   IsShowingUser="true"
                   MapType="Street"
-                  VerticalOptions="Fill"
-                  HorizontalOptions="Fill" />
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand" />
 
         <!-- Painel de botões -->
         <ScrollView Orientation="Horizontal"
-            HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            BackgroundColor="#80000000"
-            Padding="10">
+                    Grid.Row="2"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Start"
+                    BackgroundColor="#80000000"
+                    Padding="10">
 
             <StackLayout Orientation="Horizontal"
-                 Spacing="5">
+                         Spacing="10">
 
                 <Button Text="Minha Localização"
+                        WidthRequest="170"
                         Clicked="Button_MinhaLocalizacao_Clicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}"/>
 
                 <Button Text="Pontos Próximos"
+                        WidthRequest="170"
                         Clicked="Button_PontosProximos_Clicked"
-                        Background="{StaticResource PrimaryBrush}"
+                        Background="{StaticResource PrimaryBrush}"                     
                         TextColor="{StaticResource White}" />
 
-                <Button Text="Filtrar Tipo"
+                <!-- Esse botão pode ser removido se o Picker já faz o filtro
+                ver se não teremos problemas antes de remover -->
+                <!--<Button Text="Filtrar Tipo"
+                        WidthRequest="170"
                         Clicked="Button_FiltrarTipo_Clicked"
                         Background="{StaticResource PrimaryBrush}"
-                        TextColor="{StaticResource White}"/>
+                        TextColor="{StaticResource White}"/>-->
 
                 <Button Text="Voltar"
+                        WidthRequest="170"
                         Clicked="Button_Voltar"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}"/>
-
             </StackLayout>
         </ScrollView>
     </Grid>

@@ -5,8 +5,7 @@
              Title="Cadastro">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" 
-                             Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
 
             <VerticalStackLayout Spacing="2">
                 <Label Text="Insira um nome de usuário:"/>

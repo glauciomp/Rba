@@ -5,8 +5,7 @@
              Title="Usuários Cadastrados">
     
     <ScrollView>
-        <VerticalStackLayout Padding="30"
-                             Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
 
             <!-- Aviso visual -->
             <Label Text="Atenção! Excluir um usuário é uma ação irreversível. Clique no usuário que deseja excluir."
@@ -47,8 +46,7 @@
                                 Padding="10">
                             
                             <VerticalStackLayout Spacing="2">
-                                <Label Text="{Binding ID}"
-                                       FontAttributes="Bold" TextColor="White"/>
+                                <Label Text="{Binding ID}" FontAttributes="Bold" TextColor="White"/>
                                 <Label Text="{Binding NomeUsuario}" TextColor="White"/>
                                 <Label Text="{Binding Email}" TextColor="White"/>
                                 <Label Text="{Binding TipoUsuario}" TextColor="White"/>

@@ -5,11 +5,9 @@
              Title="Tipos de Lixo a Cadastrar">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" 
-                             Spacing="15">            
+        <VerticalStackLayout Padding="30" Spacing="15">
 
             <VerticalStackLayout Spacing="2">
-                
                 <Label Text="Cor da Lixeira"/>
                 <Entry x:Name="CorEntry"
                        Placeholder="Cor da Lixeira" 
@@ -115,29 +113,62 @@
                                 Stroke="LightGray" 
                                 StrokeThickness="1" 
                                 Padding="10"
-                                Margin="5">
+                                Margin="5"
+                                HorizontalOptions="FillAndExpand">
 
-                            <HorizontalStackLayout Spacing="10">
+                            <!-- Grid com duas colunas: imagem (60) + texto (*) -->
+                            <Grid ColumnDefinitions="60,*"
+                                  ColumnSpacing="10">
+
                                 <!-- imagem do cadastro lado esquerdo -->
-                                <Image Source="{Binding Imagem}"
+                                <Image Grid.Column="0"
+                                       Source="{Binding Imagem}"
                                        WidthRequest="60"
                                        HeightRequest="60"
                                        Aspect="AspectFill"
                                        VerticalOptions="Start"/>
 
-                                <!-- informações do cadastro -->
-                                <VerticalStackLayout Spacing="2">
-                                    <Label Text="{Binding ID}" FontAttributes="Bold" TextColor="White"/>
-                                    <Label Text="{Binding Cor}" TextColor="White"/>
-                                    <Label Text="{Binding Material}" TextColor="White"/>
-                                    <Label Text="{Binding Origem}" TextColor="White"/>
-                                    <Label Text="{Binding OrigemDescricao}" TextColor="White"/>
-                                    <Label Text="{Binding DestinoAmbiental}" TextColor="White"/>
-                                    <Label Text="{Binding Exemplos}" TextColor="White"/>
+                                <!-- informações do cadastro com quebra -->
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="2"
+                                                     HorizontalOptions="FillAndExpand">
+
+                                    <Label Text="{Binding ID}" 
+                                           FontAttributes="Bold" 
+                                           TextColor="White"/>
+
+                                    <Label Text="{Binding Cor}" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding Material}" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding Origem}" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding OrigemDescricao}" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding DestinoAmbiental}" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding Exemplos}" 
+                                           TextColor="White"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="FillAndExpand"/>
 
                                     <HorizontalStackLayout HorizontalOptions="Start" 
                                                            Spacing="10">
-
                                         <Button Text="Editar"
                                                 BackgroundColor="CornflowerBlue"
                                                 TextColor="White"
@@ -154,16 +185,16 @@
                                                 WidthRequest="80"
                                                 Clicked="Button_Excluir"
                                                 BindingContext="{Binding .}" />
-
                                     </HorizontalStackLayout>
-
                                 </VerticalStackLayout>
-                            </HorizontalStackLayout>
-
+                            </Grid>
                         </Border>
+
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

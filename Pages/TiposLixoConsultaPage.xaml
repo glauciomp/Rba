@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Rba.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              x:Class="Rba.Pages.TiposLixoConsultaPage"
              Title="Tipos de Lixo Cadastrados">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" 
-                             Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
             
             <Label TextColor="{StaticResource Primary}"
                    HorizontalOptions="Center"
@@ -34,10 +32,10 @@
 
                 <Button Text="Consultar"
                         Clicked="OnConsultarClicked"
-                        Background="{x:StaticResource PrimaryBrush}"
-                        TextColor="{x:StaticResource White}" />
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
 
-                <Button Text="Resgitrar"
+                <Button Text="Registrar"
                         Clicked="OnRegistrarClicked"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}"
@@ -58,41 +56,79 @@
                    TextColor="{StaticResource Primary}"
                    FontAttributes="Bold"
                    FontSize="Medium"
-                   HorizontalOptions="Center" />    
+                   HorizontalOptions="Center" />
 
             <CollectionView x:Name="TiposLixoListView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border BackgroundColor="Green" 
-                                Stroke="LightGray" 
-                                StrokeThickness="1" 
-                                Padding="10" 
-                                Margin="5">
+                        <Border BackgroundColor="Green"
+                    Stroke="LightGray"
+                    StrokeThickness="1"
+                    Padding="10"
+                    Margin="5"
+                    HorizontalOptions="FillAndExpand">
 
-                            <HorizontalStackLayout Spacing="10">
-                                <!-- imagem do cadastro lado esquerdo -->
-                                <Image Source="{Binding Imagem}"
-                                       WidthRequest="60"
-                                       HeightRequest="60"
-                                       Aspect="AspectFill" 
-                                       VerticalOptions="Start"/>
+                            <!-- Grid define largura: col 0 fixa (imagem), col 1 elástica (texto) -->
+                            <Grid ColumnDefinitions="60,*"
+                      ColumnSpacing="10">
 
-                                <VerticalStackLayout Spacing="2">
-                                    <Label Text="{Binding ID}" FontAttributes="Bold" TextColor="White"/>
-                                    <Label Text="{Binding Cor}" TextColor="White"/>
-                                    <Label Text="{Binding Material}" TextColor="White"/>
-                                    <Label Text="{Binding Origem}" TextColor="White"/>
-                                    <Label Text="{Binding OrigemDescricao}" TextColor="White"/>
-                                    <Label Text="{Binding DestinoAmbiental}" TextColor="White"/>
-                                    <Label Text="{Binding Exemplos}" TextColor="White"/>
+                                <!-- imagem -->
+                                <Image Grid.Column="0"
+                           Source="{Binding Imagem}"
+                           WidthRequest="60"
+                           HeightRequest="60"
+                           Aspect="AspectFill"
+                           VerticalOptions="Start" />
+
+                                <!-- textos -->
+                                <VerticalStackLayout Grid.Column="1"
+                                         Spacing="2"
+                                         HorizontalOptions="FillAndExpand">
+
+                                    <Label Text="{Binding ID}"
+                               FontAttributes="Bold"
+                               TextColor="White" />
+
+                                    <Label Text="{Binding Cor}"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="FillAndExpand" />
+
+                                    <Label Text="{Binding Material}"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="FillAndExpand" />
+
+                                    <Label Text="{Binding Origem}"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="FillAndExpand" />
+
+                                    <Label Text="{Binding OrigemDescricao}"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="FillAndExpand" />
+
+                                    <Label Text="{Binding DestinoAmbiental}"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="FillAndExpand" />
+
+                                    <Label Text="{Binding Exemplos}"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="FillAndExpand" />
+
+                                    
                                 </VerticalStackLayout>
                                 
-                            </HorizontalStackLayout>
-                            
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -5,8 +5,7 @@
              Title="Editar Ponto Coleta">
     
     <ScrollView>
-        <VerticalStackLayout Padding="30" 
-                             Spacing="15">            
+        <VerticalStackLayout Padding="30" Spacing="15">            
             
             <Label Text="Editar Ponto de Coleta"
                    TextColor="{StaticResource Primary}"
@@ -15,29 +14,20 @@
                    HorizontalOptions="Center"
                    Margin="0,10"/>
 
-            <Entry x:Name="nomeEntry"
-                   Placeholder="Nome do Ponto"/>
-            
-            <Entry x:Name="enderecoEntry"
-                   Placeholder="Endereço"/>
-            
-            <Entry x:Name="tipoEntry"
-                   Placeholder="Tipo de Lixo"/>
-            
-            <Entry x:Name="contatoEntry"
-                   Placeholder="Contato"/>
+            <Entry x:Name="nomeEntry" Placeholder="Nome do Ponto"/>            
+            <Entry x:Name="enderecoEntry" Placeholder="Endereço"/>            
+            <Entry x:Name="tipoEntry" Placeholder="Tipo de Lixo"/>            
+            <Entry x:Name="contatoEntry" Placeholder="Contato"/>
 
             <HorizontalStackLayout Spacing="10">
                 
                 <VerticalStackLayout>
-                    <Label Text="Início"
-                           FontAttributes="Bold"/>
+                    <Label Text="Início" FontAttributes="Bold"/>
                     <TimePicker x:Name="inicioPicker"/>                    
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Fim"
-                           FontAttributes="Bold"/>
+                    <Label Text="Fim" FontAttributes="Bold"/>
                     <TimePicker x:Name="fimPicker"/>
                 </VerticalStackLayout>
                 

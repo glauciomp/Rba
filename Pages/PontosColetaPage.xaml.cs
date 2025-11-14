@@ -19,10 +19,11 @@ public partial class PontosColetaPage : ContentPage
         listaView.ItemsSource = lista;
     }
 
-    protected override void OnAppearing()
+    // Atualiza lista sempre que a tela volta a aparecer
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        await CarregarDados();
     }
 
     private async Task CarregarDados()
@@ -36,10 +37,8 @@ public partial class PontosColetaPage : ContentPage
     // CONSULTAR: carrega todos os pontos
     private async void OnConsultarClicked(object sender, EventArgs e)
     {
-        var dados = await db.GetAll();
-        lista.Clear();
-        foreach (var p in dados)
-            lista.Add(p);        
+        await CarregarDados();
+        listaView.IsVisible = true;
     }
 
     // BUSCAR: filtra conforme texto digitado
@@ -72,6 +71,7 @@ public partial class PontosColetaPage : ContentPage
         BuscarEntry.Text = "";
         lista.Clear();
         listaView.ItemsSource = lista;
+        listaView.IsVisible = false;
     }
 
     // SALVAR novo ponto
@@ -119,10 +119,12 @@ public partial class PontosColetaPage : ContentPage
         };
 
         await db.Insert(ponto);
-        lista.Add(ponto);
 
         await DisplayAlert("Cadastro realizado!", $"Ponto \"{ponto.Nome}\" cadastrado com sucesso!", "OK");
         OnLimparClicked(sender, EventArgs.Empty);
+
+        // força atualização da lista
+        await CarregarDados();
     }
 
     // EXCLUIR

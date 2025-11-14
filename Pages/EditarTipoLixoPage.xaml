@@ -5,8 +5,7 @@
              Title="Editar Tipo Lixo">
     
     <ScrollView>
-        <VerticalStackLayout Padding="30" 
-                             Spacing="15">
+        <VerticalStackLayout Padding="30" Spacing="15">
 
             <Label Text="Editar Tipo de Lixo" 
                    TextColor="{StaticResource Primary}"

@@ -3,7 +3,6 @@ using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Maps;
 using Rba.Helpers;
 using Rba.Models;
-using System.Text.Json;
 
 namespace Rba.Pages;
 
@@ -11,7 +10,7 @@ public partial class MapaPontosColetaPage : ContentPage
 {
     private SQLiteDatabaseHelper db;
     private Location userLocation;
-    private string apiKey = "Chave_API"; // substitua pela sua
+    private string apikey = "Chave_API";
 
     public MapaPontosColetaPage()
     {
@@ -19,7 +18,40 @@ public partial class MapaPontosColetaPage : ContentPage
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
         db = new SQLiteDatabaseHelper(dbPath);
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Carrega pontos e tipos dinâmicos ao aparecer
+        await CarregarTiposDinamicosAsync();
         CarregarPontos();
+    }
+
+    private async Task CarregarTiposDinamicosAsync()
+    {
+        var todos = await db.GetAll();
+
+        var tipos = todos
+            .Select(p => p.TipoLixo?.Trim())
+            .Where(t => !string.IsNullOrWhiteSpace(t))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(t => t)
+            .ToList();
+
+        // Garante "Todos" como primeira opção
+        tipos.Insert(0, "Todos");
+
+        // Atualiza Picker
+        TipoPicker.Items.Clear();
+        foreach (var t in tipos)
+            TipoPicker.Items.Add(t);
+
+        // Seleciona "Todos" por padrão, se existente
+        var idxTodos = tipos.FindIndex(t => t.Equals("Todos", StringComparison.OrdinalIgnoreCase));
+        if (idxTodos >= 0)
+            TipoPicker.SelectedIndex = idxTodos;
     }
 
     private async void CarregarPontos(List<PontoColeta>? pontos = null)
@@ -63,23 +95,41 @@ public partial class MapaPontosColetaPage : ContentPage
         }
     }
 
+    private async void TipoPicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (TipoPicker.SelectedItem == null)
+            return;
+
+        var tipoSelecionado = TipoPicker.SelectedItem.ToString();
+        var todos = await db.GetAll();
+
+        if (string.Equals(tipoSelecionado, "Todos", StringComparison.OrdinalIgnoreCase))
+        {
+            CarregarPontos(todos);
+            return;
+        }
+
+        var filtrados = todos
+            .Where(p => string.Equals(p.TipoLixo?.Trim(), tipoSelecionado, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        CarregarPontos(filtrados);
+    }
+
     private async void Pin_InfoWindowClicked(object? sender, PinClickedEventArgs e)
     {
         var pin = sender as Pin;
         if (pin?.BindingContext is PontoColeta ponto)
         {
-                await DisplayAlert(ponto.Nome,
+            await DisplayAlert(ponto.Nome,
                 $"Endereço: {ponto.Endereco}\n" +
                 $"Tipo: {ponto.TipoLixo}\n" +
                 $"Contato: {ponto.Contato}\n" +
                 $"Horário: {ponto.Horario}",
                 "Fechar");
-
         }
     }
 
-
-    // Localização do Usuário
     private async void Button_MinhaLocalizacao_Clicked(object sender, EventArgs e)
     {
         try
@@ -122,7 +172,7 @@ public partial class MapaPontosColetaPage : ContentPage
             await DisplayAlert("Erro", $"Ocorreu um erro ao tentar obter a localização:\n{ex.Message}", "OK");
         }
     }
-    // Filtrar Pontos Próximos
+
     private async void Button_PontosProximos_Clicked(object sender, EventArgs e)
     {
         if (userLocation == null)
@@ -133,7 +183,6 @@ public partial class MapaPontosColetaPage : ContentPage
 
         var todos = await db.GetAll();
 
-        // Calcula a distância e ordena
         var proximos = todos
             .Where(p => p.Latitude != 0 && p.Longitude != 0)
             .Select(p => new
@@ -142,7 +191,7 @@ public partial class MapaPontosColetaPage : ContentPage
                 Distancia = Location.CalculateDistance(userLocation, new Location(p.Latitude, p.Longitude), DistanceUnits.Kilometers)
             })
             .OrderBy(x => x.Distancia)
-            .Take(2) // pega apenas os 2 mais próximos
+            .Take(2)
             .Select(x => x.Ponto)
             .ToList();
 
@@ -153,33 +202,6 @@ public partial class MapaPontosColetaPage : ContentPage
         }
 
         CarregarPontos(proximos);
-    }
-
-    // Filtrar por tipo de lixo
-    private async void Button_FiltrarTipo_Clicked(object sender, EventArgs e)
-    {
-        var tipos = new[] { "Todos", "Plástico", "Papel", "Vidro", "Metal", "Orgânico",
-                        "Não reciclável", "Madeira", "Resíduos", "Perigosos",
-                        "Hospitalar", "Radioativos" };
-
-        var tipoSelecionado = await DisplayActionSheet("Selecione o tipo de resíduo", "Cancelar", null, tipos);
-
-        // Se o usuário cancelar, não faz nada
-        if (tipoSelecionado == "Cancelar")
-            return;
-
-        var todos = await db.GetAll();
-
-        // Se selecionar "Todos", mostra todos os pontos
-        if (tipoSelecionado == "Todos")
-        {
-            CarregarPontos(todos);
-            return;
-        }
-
-        // Caso contrário, filtra normalmente
-        var filtrados = todos.Where(p => p.TipoLixo == tipoSelecionado).ToList();
-        CarregarPontos(filtrados);
     }
 
     private async void Button_Voltar(object sender, EventArgs e)

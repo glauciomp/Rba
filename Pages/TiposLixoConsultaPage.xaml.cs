@@ -23,7 +23,16 @@ public partial class TiposLixoConsultaPage : ContentPage
 
         IsMaster = SQLiteDatabaseHelper.Sessao.IsMaster;
         BindingContext = this;
-    }   
+    }
+
+    // Atualiza sempre que a tela volta a aparecer
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        todosTipos.Clear();
+        TiposLixoListView.ItemsSource = null;
+        BuscarEntry.Text = "";
+    }
     private async void OnConsultarClicked(object sender, EventArgs e)
     {
         todosTipos = await _db.GetTiposLixosAsync();
