@@ -15,7 +15,6 @@
                   HorizontalOptions="Fill" />
 
         <!-- Painel de botões -->
-
         <ScrollView Orientation="Horizontal"
             HorizontalOptions="Fill"
             VerticalOptions="Start"
@@ -24,7 +23,6 @@
 
             <StackLayout Orientation="Horizontal"
                  Spacing="5">
-
 
                 <Button Text="Minha Localização"
                         Clicked="Button_MinhaLocalizacao_Clicked"
@@ -36,7 +34,6 @@
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
 
-
                 <Button Text="Filtrar Tipo"
                         Clicked="Button_FiltrarTipo_Clicked"
                         Background="{StaticResource PrimaryBrush}"
@@ -46,7 +43,6 @@
                         Clicked="Button_Voltar"
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}"/>
-
 
             </StackLayout>
         </ScrollView>

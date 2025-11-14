@@ -9,7 +9,7 @@ namespace Rba.Pages
     public partial class TiposLixoPage : ContentPage
     {
         private readonly SQLiteDatabaseHelper _dbHelper;
-        private ObservableCollection<TipoLixo> tipoLixo = new ();
+        private ObservableCollection<TipoLixo> tipoLixo = new();
         private List<TipoLixo> todosTipos = new(); // Lista completa para busca
 
         public TiposLixoPage()
@@ -19,19 +19,7 @@ namespace Rba.Pages
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "rba.db3");
             _dbHelper = new SQLiteDatabaseHelper(dbPath);
             TiposLixoListView.ItemsSource = tipoLixo;
-
         }
-        /* // pré carrega o que já tem cadastrado 
-         protected override async void OnAppearing()
-         {
-             base.OnAppearing();
-
-             var dados = await _dbHelper.GetTiposLixosAsync();
-             tipoLixo.Clear();
-
-             foreach (var item in dados)
-                 tipoLixo.Add(item);
-         }*/
 
         private async void OnConsultarClicked(object sender, EventArgs e)
         {
@@ -57,26 +45,19 @@ namespace Rba.Pages
             AtualizarLista(filtrados);
         }
 
-        /* private void AtualizarLista(List<TipoLixo> lista)
-         {
-             tipoLixo.Clear();
-             foreach (var item in lista)
-                 tipoLixo.Add(item);
-         } */
-
         // método novo da imagem
         private void AtualizarLista(List<TipoLixo> lista)
         {
             tipoLixo.Clear();
             foreach (var item in lista)
             {
-                // 🔧 Adição: associa imagem com base no material
+                // Associa imagem com base no material
                 item.Imagem = ObterImagemPorMaterial(item.Material);
                 tipoLixo.Add(item);
             }
         }
 
-        // 🔧 Novo método: retorna o nome da imagem com base no material
+        // Retorna o nome da imagem com base no material
         private string ObterImagemPorMaterial(string material)
         {
             return material?.ToLower() switch
@@ -98,52 +79,54 @@ namespace Rba.Pages
         private async void OnRegistrarClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(CorEntry.Text) ||
-                string.IsNullOrWhiteSpace(MaterialEntry.Text) ||
+                MaterialPicker.SelectedItem == null ||
                 string.IsNullOrWhiteSpace(OrigemEntry.Text) ||
                 string.IsNullOrWhiteSpace(OrigemDescrEntry.Text) ||
-                string.IsNullOrWhiteSpace(DestinoEntry.Text) ||
+                DestinoPicker.SelectedItem == null ||
                 string.IsNullOrWhiteSpace(ExemplosEntry.Text))
             {
-                await DisplayAlert("Erro", "Por favor, preencha todos os campos.", "OK");
+                await DisplayAlert("Atenção!", "Por favor, preencha todos os campos.", "OK");
                 return;
             }
+
             var novoTipo = new TipoLixo
             {
                 Cor = CorEntry.Text,
-                Material = MaterialEntry.Text,
+                Material = MaterialPicker.SelectedItem?.ToString() ?? string.Empty,
                 Origem = OrigemEntry.Text,
                 OrigemDescricao = OrigemDescrEntry.Text,
-                DestinoAmbiental = DestinoEntry.Text,
+                DestinoAmbiental = DestinoPicker.SelectedItem?.ToString() ?? string.Empty,
                 Exemplos = ExemplosEntry.Text
             };
-            
+
+            novoTipo.Imagem = ObterImagemPorMaterial(novoTipo.Material);
+
             await _dbHelper.InserirTipoLixoAsync(novoTipo);
-            await DisplayAlert("Registro", "Tipo de lixo registrado.", "OK");
+            await DisplayAlert("Confirmação de cadastro!", "Tipo de lixo registrado.", "OK");
 
             // Limpar campos
             CorEntry.Text = string.Empty;
-            MaterialEntry.Text = string.Empty;
+            MaterialPicker.SelectedIndex = -1; // Limpa seleção do Picker
             OrigemEntry.Text = string.Empty;
             OrigemDescrEntry.Text = string.Empty;
-            DestinoEntry.Text = string.Empty;
+            DestinoPicker.SelectedIndex = -1; // Limpa seleção do Picker
             ExemplosEntry.Text = string.Empty;
+            BuscarEntry.Text = string.Empty;
 
-            // Atualizar lista
-            var dados = await _dbHelper.GetTiposLixosAsync();
-            tipoLixo.Clear();
-            foreach (var item in dados)
-                tipoLixo.Add(item);
-
+            // Atualizar lista: adiciona direto o novo item já com imagem
+            tipoLixo.Add(novoTipo);
         }
 
         private void OnLimparClicked(object sender, EventArgs e)
         {
             CorEntry.Text = string.Empty;
-            MaterialEntry.Text = string.Empty;
+            MaterialPicker.SelectedIndex = -1; // Limpa seleção do Picker
             OrigemEntry.Text = string.Empty;
             OrigemDescrEntry.Text = string.Empty;
-            DestinoEntry.Text = string.Empty;
+            DestinoPicker.SelectedIndex = -1; // Limpa seleção do Picker
             ExemplosEntry.Text = string.Empty;
+            BuscarEntry.Text = string.Empty; // Lambém limpa busca
+            TiposLixoListView.ItemsSource = null;
         }
 
         private async void OnVoltarClicked(object sender, EventArgs e)
@@ -155,8 +138,8 @@ namespace Rba.Pages
         {
             try
             {
-                Button btn = sender as Button;
-                if (btn?.BindingContext is TipoLixo tipoLixo )
+                Button? btn = sender as Button;
+                if (btn?.BindingContext is TipoLixo tipoLixo)
                 {
                     await Navigation.PushAsync(new EditarTipoLixoPage(tipoLixo));
                 }
@@ -171,7 +154,7 @@ namespace Rba.Pages
         {
             if (sender is Button btn && btn.BindingContext is TipoLixo itemSelecionado)
             {
-                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover{itemSelecionado.ID}?", "Sim", "Não");
+                bool confirmar = await DisplayAlert("Tem certeza?", $"Remover {itemSelecionado.ID}?", "Sim", "Não");
                 if (confirmar)
                 {
                     await _dbHelper.DeleteTipoLixo(itemSelecionado.ID);
@@ -181,7 +164,6 @@ namespace Rba.Pages
                     tipoLixo.Clear();
                     foreach (var item in dados)
                         tipoLixo.Add(item);
-
                 }
             }
         }

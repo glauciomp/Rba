@@ -23,16 +23,7 @@ public partial class TiposLixoConsultaPage : ContentPage
 
         IsMaster = SQLiteDatabaseHelper.Sessao.IsMaster;
         BindingContext = this;
-    }
-
-
-    /* protected override async void OnAppearing()
-    {
-        // opcional: carregar automaticamente ao abrir
-        todosTipos = await _db.GetTiposLixosAsync();
-        AtualizarLista(todosTipos);
-    }*/
-
+    }   
     private async void OnConsultarClicked(object sender, EventArgs e)
     {
         todosTipos = await _db.GetTiposLixosAsync();
@@ -57,7 +48,7 @@ public partial class TiposLixoConsultaPage : ContentPage
         AtualizarLista(filtrados);
     }
 
-    // 🔧 ALTERADO: agora usamos TipoLixo diretamente e associamos imagem
+    // Agora usamos TipoLixo diretamente e associamos imagem
     private void AtualizarLista(List<TipoLixo> lista)
     {
         foreach (var item in lista)
@@ -68,7 +59,7 @@ public partial class TiposLixoConsultaPage : ContentPage
         TiposLixoListView.ItemsSource = lista;
     }
 
-    // 🔧 NOVO: método para obter imagem com base no material
+    // Método para obter imagem com base no material
     private string ObterImagemPorMaterial(string material)
     {
         return material?.ToLower() switch
@@ -90,7 +81,6 @@ public partial class TiposLixoConsultaPage : ContentPage
     {
         await Navigation.PopAsync();
     }
-
     private async void OnRegistrarClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new TiposLixoPage());

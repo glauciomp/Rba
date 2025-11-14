@@ -1,14 +1,14 @@
 using Rba.Helpers;
 using Rba.Models;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace Rba.Pages;
 
 public partial class PontosColetaPage : ContentPage
 {
     private readonly SQLiteDatabaseHelper db;
-    ObservableCollection<PontoColeta> lista = new ObservableCollection<PontoColeta>();
+    private ObservableCollection<PontoColeta> lista = new ObservableCollection<PontoColeta>();
+
     public PontosColetaPage()
     {
         InitializeComponent();
@@ -19,17 +19,62 @@ public partial class PontosColetaPage : ContentPage
         listaView.ItemsSource = lista;
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
+    }
+
+    private async Task CarregarDados()
+    {
         var dados = await db.GetAll();
         lista.Clear();
         foreach (var p in dados)
             lista.Add(p);
     }
 
-    // Salvar novo ponto (apenas admin)
+    // CONSULTAR: carrega todos os pontos
+    private async void OnConsultarClicked(object sender, EventArgs e)
+    {
+        var dados = await db.GetAll();
+        lista.Clear();
+        foreach (var p in dados)
+            lista.Add(p);        
+    }
+
+    // BUSCAR: filtra conforme texto digitado
+    private void OnBuscarTextChanged(object sender, TextChangedEventArgs e)
+    {
+        string termo = e.NewTextValue?.ToLower() ?? "";
+        if (string.IsNullOrWhiteSpace(termo))
+        {
+            listaView.ItemsSource = lista;
+            return;
+        }
+
+        var filtrados = lista.Where(p =>
+            (p.Nome?.ToLower().Contains(termo) ?? false) ||
+            (p.Endereco?.ToLower().Contains(termo) ?? false) ||
+            (p.TipoLixo?.ToLower().Contains(termo) ?? false) ||
+            (p.Contato?.ToLower().Contains(termo) ?? false) ||
+            (p.Horario?.ToLower().Contains(termo) ?? false)
+        ).ToList();
+
+        listaView.ItemsSource = filtrados;
+    }
+
+    // LIMPAR: limpa campos do formulário
+    private void OnLimparClicked(object sender, EventArgs e)
+    {
+        nomeEntry.Text = enderecoEntry.Text = tipoEntry.Text = contatoEntry.Text = "";
+        inicioPicker.Time = new TimeSpan(8, 0, 0);
+        fimPicker.Time = new TimeSpan(18, 0, 0);
+        BuscarEntry.Text = "";
+        lista.Clear();
+        listaView.ItemsSource = lista;
+    }
+
+    // SALVAR novo ponto
     private async void Button_Salvar(object sender, EventArgs e)
     {
         string nome = nomeEntry.Text?.Trim() ?? "";
@@ -40,10 +85,10 @@ public partial class PontosColetaPage : ContentPage
 
         if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(endereco))
         {
-            await DisplayAlert("Erro", "Preencha pelo menos nome e endere�o.", "OK");
+            await DisplayAlert("Erro", "Preencha pelo menos nome e endereço.", "OK");
             return;
         }
-        // coordenadas via Geocoding
+
         double latitude = 0;
         double longitude = 0;
 
@@ -55,10 +100,6 @@ public partial class PontosColetaPage : ContentPage
             {
                 latitude = location.Latitude;
                 longitude = location.Longitude;
-            }
-            else
-            {
-                await DisplayAlert("Aviso", "Não foi possível obter coordenadas para este endereço.", "OK");
             }
         }
         catch (Exception ex)
@@ -80,15 +121,11 @@ public partial class PontosColetaPage : ContentPage
         await db.Insert(ponto);
         lista.Add(ponto);
 
-        await DisplayAlert("Cadastro realizado!", $"Ponto de coleta \"{ponto.Nome}\" cadastrado com sucesso!", "OK");
-
-        // Limpar campos
-        nomeEntry.Text = enderecoEntry.Text = tipoEntry.Text = contatoEntry.Text = "";
-        inicioPicker.Time = new TimeSpan(8, 0, 0);
-        fimPicker.Time = new TimeSpan(18, 0, 0);
+        await DisplayAlert("Cadastro realizado!", $"Ponto \"{ponto.Nome}\" cadastrado com sucesso!", "OK");
+        OnLimparClicked(sender, EventArgs.Empty);
     }
 
-    // Excluir ponto
+    // EXCLUIR
     private async void Button_Excluir(object sender, EventArgs e)
     {
         if (sender is Button btn && btn.BindingContext is PontoColeta ponto)
@@ -102,22 +139,16 @@ public partial class PontosColetaPage : ContentPage
         }
     }
 
+    // EDITAR
     private async void Button_Editar(object sender, EventArgs e)
     {
-        try
+        if (sender is Button btn && btn.BindingContext is PontoColeta ponto)
         {
-            Button btn = sender as Button;
-            if (btn?.BindingContext is PontoColeta ponto)
-            {
-                await Navigation.PushAsync(new EditarPontoColeta(ponto));
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Erro ao Editar", ex.Message, "OK");
+            await Navigation.PushAsync(new EditarPontoColeta(ponto));
         }
     }
 
+    // VOLTAR
     private async void Button_Voltar(object sender, EventArgs e)
     {
         await Navigation.PopAsync();

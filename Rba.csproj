@@ -102,6 +102,9 @@
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\SobrePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\TiposLixoConsultaPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

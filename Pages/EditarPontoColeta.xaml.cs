@@ -56,13 +56,12 @@ public partial class EditarPontoColeta : ContentPage
             // Se o endereço mudou, atualiza as coordenadas
             await AtualizarCoordenadasSeNecessario();
 
-
             await db.Update(ponto);
 
-            await DisplayAlert("Sucesso", "Ponto atualizado com sucesso!", "OK");
+            await DisplayAlert("Sucesso!", "Ponto de coleta atualizado.", "OK");
             await Navigation.PopAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await DisplayAlert("Erro", $"Falha ao salvar alterações", "OK");
         }
@@ -92,7 +91,7 @@ public partial class EditarPontoColeta : ContentPage
     }
     private async void OnCancelarClicked(object sender, EventArgs e)
     {
-        bool cancelar = await DisplayAlert("Cancelar edi��o", "Deseja sair sem salvar?", "Sim", "Não");
+        bool cancelar = await DisplayAlert("Cancelar edições?", "Deseja sair sem salvar?", "Sim", "Não");
         if (cancelar)
             await Navigation.PopAsync();
     }

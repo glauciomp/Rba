@@ -46,6 +46,11 @@
                     Background="{StaticResource PrimaryBrush}"
                     TextColor="{StaticResource White}" />
 
+            <Button Text="Sobre"
+                    Clicked="OnSobreClicked"
+                    Background="{StaticResource PrimaryBrush}"
+                    TextColor="{StaticResource White}" />
+
             <Button Text="Sair"
                     Clicked="OnLogoutClicked"
                     Background="{StaticResource PrimaryBrush}"

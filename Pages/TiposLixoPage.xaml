@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Rba.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              x:Class="Rba.Pages.TiposLixoPage"
              Title="Tipos de Lixo a Cadastrar">
 
     <ScrollView>
         <VerticalStackLayout Padding="30" 
-                             Spacing="15" 
-                             VerticalOptions="Center">
-
-            <views:LogoView/>
+                             Spacing="15">            
 
             <VerticalStackLayout Spacing="2">
+                
                 <Label Text="Cor da Lixeira"/>
                 <Entry x:Name="CorEntry"
                        Placeholder="Cor da Lixeira" 
                        Text="{Binding Cor}" />
             </VerticalStackLayout>
 
+            <!-- Picker para Tipo de Material -->
             <VerticalStackLayout Spacing="2">
                 <Label Text="Tipo de Material"/>
-                <Entry x:Name="MaterialEntry" 
-                       Placeholder="Tipo de Material"  
-                       Text="{Binding Material}"/>
+                <Picker x:Name="MaterialPicker"
+                        Title="Selecione o tipo de material">
+                    <Picker.Items>
+                        <x:String>Papel</x:String>
+                        <x:String>Plástico</x:String>
+                        <x:String>Metal</x:String>
+                        <x:String>Vidro</x:String>
+                        <x:String>Orgânico</x:String>
+                        <x:String>Madeira</x:String>
+                        <x:String>Resíduos Perigosos</x:String>
+                        <x:String>Hospitalar</x:String>
+                        <x:String>Radioativos</x:String>
+                        <x:String>Não Recicláveis</x:String>
+                        <x:String>Outros</x:String>
+                    </Picker.Items>
+                </Picker>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="2">
@@ -40,11 +51,21 @@
                        Text="{Binding OrigemDescricao}" />
             </VerticalStackLayout>
 
+            <!-- Picker para Destino Ambiental -->
             <VerticalStackLayout Spacing="2">
                 <Label Text="Destino Ambiental"/>
-                <Entry x:Name="DestinoEntry" 
-                       Placeholder="Destino Ambiental"
-                       Text="{Binding DestinoAmbiental}"/>
+                <Picker x:Name="DestinoPicker"
+                        Title="Selecione o destino ambiental">
+                    <Picker.Items>
+                        <x:String>Reciclável</x:String>
+                        <x:String>Compostável</x:String>
+                        <x:String>Reutilizável ou descartável</x:String>
+                        <x:String>Necessita descarte especial</x:String>
+                        <x:String>Descarte controlado</x:String>
+                        <x:String>Altamente controlado</x:String>
+                        <x:String>Descarte comum</x:String>
+                    </Picker.Items>
+                </Picker>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="2">
@@ -54,7 +75,7 @@
                        Text="{Binding Exemplos}"/>
             </VerticalStackLayout>
 
-               <!-- botões de ação -->
+            <!-- botões de ação -->
             <VerticalStackLayout Spacing="10"
                                  Padding="0">
                 <Button Text="Consultar"
@@ -75,21 +96,21 @@
                         Background="{StaticResource PrimaryBrush}"
                         TextColor="{StaticResource White}" />
 
-                    <Button Text="Limpar" 
-                            Clicked="OnLimparClicked"
-                            Background="{StaticResource PrimaryBrush}"
-                            TextColor="{StaticResource White}" />
+                <Button Text="Limpar" 
+                        Clicked="OnLimparClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
 
-                    <Button Text="Voltar" 
-                            Clicked="OnVoltarClicked"
-                            Background="{StaticResource PrimaryBrush}"
-                            TextColor="{StaticResource White}" />
+                <Button Text="Voltar" 
+                        Clicked="OnVoltarClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
             </VerticalStackLayout>
-            
+
             <CollectionView x:Name="TiposLixoListView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        
+
                         <Border BackgroundColor="Green" 
                                 Stroke="LightGray" 
                                 StrokeThickness="1" 
@@ -116,7 +137,7 @@
 
                                     <HorizontalStackLayout HorizontalOptions="Start" 
                                                            Spacing="10">
-                                        
+
                                         <Button Text="Editar"
                                                 BackgroundColor="CornflowerBlue"
                                                 TextColor="White"
@@ -133,12 +154,12 @@
                                                 WidthRequest="80"
                                                 Clicked="Button_Excluir"
                                                 BindingContext="{Binding .}" />
-                                        
+
                                     </HorizontalStackLayout>
-                                    
+
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
-                            
+
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

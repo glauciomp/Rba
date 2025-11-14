@@ -1,91 +1,112 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Rba.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              x:Class="Rba.Pages.PontosColetaPage"
-             Title="Cadastro">
+             Title="Cadastro de Pontos de Coleta">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" 
-                             Spacing="15">            
-            <views:LogoView />
+        <VerticalStackLayout Padding="30" Spacing="15">
 
-            <!-- FORMULÁRIO: somente admin -->
-            <VerticalStackLayout >
-                <Label Text="Cadastrar novo ponto de coleta"                      
-                       FontSize="18"                       
-                       HorizontalOptions="Center" />
+            <!-- FORMULÁRIO -->
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Nome do ponto"/>
                 <Entry x:Name="nomeEntry" Placeholder="Nome do ponto" />
-                <Entry x:Name="enderecoEntry" Placeholder="Endereço" />
-                <Entry x:Name="tipoEntry" Placeholder="Tipo de lixo" />
-                <Entry x:Name="contatoEntry" Placeholder="Contato" />
-
-                <Label Text="Horário de início" />
-                <TimePicker x:Name="inicioPicker" 
-                            Time="08:00" />
-                
-                <Label Text="Horário de término" />
-                <TimePicker x:Name="fimPicker" 
-                            Time="18:00" />
-
-                <VerticalStackLayout Padding="30" 
-                                     Spacing="15">
-                    
-                    <Button Text="Salvar" 
-                            Clicked="Button_Salvar" />
-                    
-                    <Button Text="Voltar" 
-                            Clicked="Button_Voltar"/>
-                    
-                </VerticalStackLayout>
-
             </VerticalStackLayout>
 
-            <!-- LISTA DE PONTOS: -->
-            <Label Text="Cadastrar Pontos de Coleta"                   
-                   FontSize="18"
-                   HorizontalOptions="Center" />
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Endereço"/>
+                <Entry x:Name="enderecoEntry" Placeholder="Endereço" />
+            </VerticalStackLayout>
 
-            <CollectionView x:Name="listaView" 
-                            SelectionMode="None"
-                            HeightRequest="400">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Tipo de lixo"/>
+                <Entry x:Name="tipoEntry" Placeholder="Tipo de lixo" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Contato"/>
+                <Entry x:Name="contatoEntry" Placeholder="Contato" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Horário de início"/>
+                <TimePicker x:Name="inicioPicker" Time="08:00" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Horário de término"/>
+                <TimePicker x:Name="fimPicker" Time="18:00" />
+            </VerticalStackLayout>
+
+            <!-- BOTÕES DE AÇÃO -->
+            <VerticalStackLayout Spacing="10" Padding="0">
+                <Button Text="Consultar"
+                        Clicked="OnConsultarClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}"/>
+
+                <Entry x:Name="BuscarEntry"
+                       Placeholder="Digite para buscar..."
+                       TextChanged="OnBuscarTextChanged"
+                       BackgroundColor="White"
+                       FontSize="12"
+                       TextColor="Black"/>
+
+                <Button Text="Salvar"
+                        Clicked="Button_Salvar"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
+
+                <Button Text="Limpar"
+                        Clicked="OnLimparClicked"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
+
+                <Button Text="Voltar"
+                        Clicked="Button_Voltar"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="{StaticResource White}" />
+            </VerticalStackLayout>
+
+            <!-- LISTA DE PONTOS -->
+            <CollectionView x:Name="listaView" SelectionMode="None" HeightRequest="400">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border BackgroundColor="#2E7D32"
+                        <Border BackgroundColor="Green"
                                 Stroke="LightGray"
                                 StrokeThickness="1"
-                                Margin="5"
-                                Padding="10">
-                            
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Nome}" FontAttributes="Bold" TextColor="White" />
-                                <Label Text="{Binding Endereco}" TextColor="White" />
-                                <Label Text="{Binding TipoLixo}" TextColor="White" />
-                                <Label Text="{Binding Contato}" TextColor="White" />
-                                <Label Text="{Binding Horario}" FontSize="12" TextColor="White" />
+                                Padding="10"
+                                Margin="5">
 
-                                <HorizontalStackLayout HorizontalOptions="Start" 
-                                                       Spacing="10">
-                                    
-                                    <Button Text="Editar"
-                                            BackgroundColor="CornflowerBlue"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            WidthRequest="80"
-                                            Clicked="Button_Editar"
-                                            BindingContext="{Binding .}" />
-                                                                                                          <!-- Botão excluir só para admin -->
-                                    <Button Text="Excluir"
-                                            BackgroundColor="Red"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            WidthRequest="80"
-                                            Clicked="Button_Excluir"
-                                            BindingContext="{Binding .}" />
-                                    
-                                </HorizontalStackLayout>
-                                
-                            </VerticalStackLayout>
+                            <HorizontalStackLayout Spacing="10">
+                                <!-- informações do cadastro -->
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding Nome}" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="{Binding Endereco}" TextColor="White"/>
+                                    <Label Text="{Binding TipoLixo}" TextColor="White"/>
+                                    <Label Text="{Binding Contato}" TextColor="White"/>
+                                    <Label Text="{Binding Horario}" FontSize="12" TextColor="White"/>
+
+                                    <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+                                        <Button Text="Editar"
+                                                BackgroundColor="CornflowerBlue"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                WidthRequest="80"
+                                                Clicked="Button_Editar"
+                                                BindingContext="{Binding .}" />
+
+                                        <Button Text="Excluir"
+                                                BackgroundColor="Red"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                WidthRequest="80"
+                                                Clicked="Button_Excluir"
+                                                BindingContext="{Binding .}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -5,41 +5,69 @@
              Title="Editar Tipo Lixo">
     
     <ScrollView>
-        <VerticalStackLayout Padding="20" 
+        <VerticalStackLayout Padding="30" 
                              Spacing="15">
 
             <Label Text="Editar Tipo de Lixo" 
-                   FontSize="20" 
-                   HorizontalOptions="Center" />
+                   TextColor="{StaticResource Primary}"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,10"/>
 
             <Entry x:Name="CorEntry"
-                   Placeholder="Cor da Lixeira" />
-            <Entry x:Name="MaterialEntry"
-                   Placeholder="Tipo de Material" />
+                   Placeholder="Cor da lixeira" />
+            
+            <Picker x:Name="MaterialPicker"
+                    Title="Selecione o tipo de material">
+                <Picker.Items>
+                    <x:String>Papel</x:String>
+                    <x:String>Plástico</x:String>
+                    <x:String>Metal</x:String>
+                    <x:String>Vidro</x:String>
+                    <x:String>Orgânico</x:String>
+                    <x:String>Madeira</x:String>
+                    <x:String>Resíduos Perigosos</x:String>
+                    <x:String>Hospitalar</x:String>
+                    <x:String>Radioativos</x:String>
+                    <x:String>Não Recicláveis</x:String>
+                    <x:String>Outros</x:String>
+                </Picker.Items>
+            </Picker>
+            
             <Entry x:Name="OrigemEntry" 
                    Placeholder="Classificação por Origem" />
             <Entry x:Name="OrigemDescrEntry" 
-                   Placeholder="Descrição da Origem" />
-            <Entry x:Name="DestinoEntry" 
-                   Placeholder="Destino Ambiental" />
+                   Placeholder="Descrição da origem" />
+
+            <Picker x:Name="DestinoPicker"
+                    Title="Selecione o destino ambiental">
+                <Picker.Items>
+                    <x:String>Reciclável</x:String>
+                    <x:String>Compostável</x:String>
+                    <x:String>Reutilizável ou descartável</x:String>
+                    <x:String>Necessita descarte especial</x:String>
+                    <x:String>Descarte controlado</x:String>
+                    <x:String>Altamente controlado</x:String>
+                    <x:String>Descarte comum</x:String>
+                </Picker.Items>
+            </Picker>
+
             <Entry x:Name="ExemplosEntry"
                    Placeholder="Exemplos" />
-
-            <HorizontalStackLayout HorizontalOptions="Center" 
-                                   Spacing="15">
                 
-                <Button Text="Salvar" 
-                        Clicked="Button_Salvar"
-                        BackgroundColor="#2E7D32" 
-                        TextColor="White"/>
+                <Button Text="Salvar Alterações"
+                        Background="{StaticResource PrimaryBrush}"
+                        TextColor="white"
+                        CornerRadius="8"
+                        Clicked="Button_Salvar"/>
                 
-                <Button Text="Cancelar" 
-                        Clicked="Button_Cancelar"
-                        BackgroundColor="Gray"
-                        TextColor="White"/>
-                
-            </HorizontalStackLayout>
-
+                <Button Text="Cancelar"
+                        BackgroundColor="#9E9E9E"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Clicked="Button_Cancelar"/>
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

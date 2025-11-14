@@ -39,6 +39,7 @@
                    TextColor="Black"/>
 
             <Label Text="Pontos de Coleta Cadastrados"
+                   TextColor="{StaticResource Primary}"
                    FontAttributes="Bold"
                    FontSize="Medium"
                    HorizontalOptions="Center" />

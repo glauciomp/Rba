@@ -25,7 +25,12 @@ namespace Rba.Pages
         private async void OnMapaClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new MapaPontosColetaPage());
-        } 
+        }
+
+        private async void OnSobreClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SobrePage());
+        }
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
